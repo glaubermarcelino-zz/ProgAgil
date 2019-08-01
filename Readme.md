@@ -1,1 +1,0 @@
-## Curso Aspnet.Net Core (WebApi) FullStack com Angular(FronEnd)
