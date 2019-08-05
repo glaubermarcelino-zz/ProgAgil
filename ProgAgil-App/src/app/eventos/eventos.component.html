@@ -1,16 +1,41 @@
-<h2>
-  <p>
-    <b>Eventos!</b>
-  </p>
-</h2>
-<div class="box" *ngFor="let evento of eventos">
-  <div class="col-lg-6 col-md-6 col-m-6">
-    <p>ID: {{ evento.eventoId }}</p>
-    <p>TEMA: {{ evento.tema }}</p>
-    <p>Nº Pessoas: {{ evento.qtdPessoas }}</p>
-    <p>Local: {{ evento.local }}</p>
-    <p>Lote: {{ evento.lote }}</p>
-    <p>Data: {{ evento.dataEvento }}</p>
-    <img src="{{ evento.imagemURL }}" width="10%" height="10%" />
+<form class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="buscar">
+    <button class="btn btn-outline-sucess">buscar</button>
   </div>
-</div>
+</form>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd. Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+<tbody class="tbody">
+  <tr *ngFor="let evento of eventos">
+    <td>{{evento.eventoId}}</td>
+    <td>{{evento.tema}}</td>
+    <td>{{evento.local}}</td>
+    <td>{{evento.dataEvento}}</td>
+    <td>{{evento.qtdPessoas}}</td>
+    <td>{{evento.lote}}</td>
+    <td></td>
+  </tr>
+</tbody>
+</table>
+<!-- <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let evento of eventos">
+        <h4>{{ evento.tema }}. </h4>
+        {{ evento.local }}
+        <img src="{{ evento.imagemURL }}" width="50%" height="50%" />
+        <p><a class="btn btn-secondary" href="#" role="button">Detalhes »</a></p>
+      </div>
+    </div>
+    <hr>
+  </div> -->
