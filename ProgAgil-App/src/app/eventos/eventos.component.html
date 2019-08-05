@@ -1,12 +1,19 @@
-<form class="form-inline">
+<div class="form-inline">
   <div class="form-group mb-2">
-    <input type="text" class="form-control mr-2" placeholder="buscar">
-    <button class="btn btn-outline-sucess">buscar</button>
+    Filtro: <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="filtroLista">
+    <button class="btn btn-outline-sucess">Buscar</button>
   </div>
-</form>
+</div>
+<h3>Filtro: {{filtroLista}}</h3>
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
+      <th>
+        <button class="btn btn-outline-primary" 
+        (click)="alternarImagem()">
+          Mostrar Imagem
+        </button>
+      </th>
       <th>#</th>
       <th>Tema</th>
       <th>Local</th>
@@ -16,26 +23,28 @@
       <th>Opções</th>
     </tr>
   </thead>
-<tbody class="tbody">
-  <tr *ngFor="let evento of eventos">
-    <td>{{evento.eventoId}}</td>
-    <td>{{evento.tema}}</td>
-    <td>{{evento.local}}</td>
-    <td>{{evento.dataEvento}}</td>
-    <td>{{evento.qtdPessoas}}</td>
-    <td>{{evento.lote}}</td>
-    <td></td>
-  </tr>
-</tbody>
+  <tbody class="tbody" *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventos">
+      <td>
+        <img  *ngIf="mostrarImagem" src="{{evento.imagemURL}}" [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem"/>
+      </td>
+      <td>{{evento.eventoId}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.qtdPessoas}}</td>
+      <td>{{evento.lote}}</td>
+      <td>
+        <button class="btn btn-success"></button>
+        <button class="btn btn-danger"></button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="7" class="text-center">
+        <h4>Nenhum Evento encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
 </table>
-<!-- <div class="container">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let evento of eventos">
-        <h4>{{ evento.tema }}. </h4>
-        {{ evento.local }}
-        <img src="{{ evento.imagemURL }}" width="50%" height="50%" />
-        <p><a class="btn btn-secondary" href="#" role="button">Detalhes »</a></p>
-      </div>
-    </div>
-    <hr>
-  </div> -->

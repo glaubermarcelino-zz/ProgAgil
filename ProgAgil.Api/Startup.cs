@@ -49,6 +49,7 @@ namespace ProgAgil.Api
 
             //app.UseHttpsRedirection();
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
