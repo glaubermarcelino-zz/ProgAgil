@@ -12,6 +12,7 @@ export class EventosComponent implements OnInit {
   imagemMargem = 2;
   mostrarImagem = false;
   _filtroLista: string;
+
   get filtroLista(): string {
     return this._filtroLista;
   }
@@ -30,7 +31,7 @@ filtrarEvento(filtrarPor: string): any {
   return this.eventos.filter(
     evento => evento.tema
               .toLocaleLowerCase()
-              .indexof(filtrarPor) !== -1);
+              .indexOf(filtrarPor) !== -1);
 }
   alternarImagem()  {
     this.mostrarImagem = !this.mostrarImagem;
@@ -39,7 +40,8 @@ filtrarEvento(filtrarPor: string): any {
     this.getEventos();
   }
   getEventos() {
-    this.http.get('http://localhost:5000/api/values').subscribe(response => {
+    this.http.get('http://localhost:5000/api/values')
+    .subscribe(response => {
       this.eventos = response;
     }, error => {
         console.error(error);
