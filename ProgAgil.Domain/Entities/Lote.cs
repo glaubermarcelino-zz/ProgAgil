@@ -1,3 +1,4 @@
+using System;
 namespace ProgAgil.Domain.Entities
 {
     public class Lote

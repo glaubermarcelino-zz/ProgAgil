@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 namespace ProgAgil.Domain.Entities
 {
     public class Palestrante

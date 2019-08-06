@@ -38,7 +38,7 @@ namespace ProgAgil.Api.Controllers
         {
             try
             {
-                var evento = await _context.Eventos.FirstOrDefaultAsync(x => x.EventoId == id);
+                var evento = await _context.Eventos.FirstOrDefaultAsync(x => x.Id == id);
                 if (evento != null)
                 {
                     return Ok(evento);
