@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using ProgAgil.Api.Data;
+using ProgAgil.Repository;
 
 namespace ProgAgil.Api
 {
@@ -27,8 +27,8 @@ namespace ProgAgil.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Adicionando o DataContext
-            services.AddDbContext<DataContext>(options =>
+            //Adicionando o ProAgilContext
+            services.AddDbContext<ProAgilContext>(options =>
                                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

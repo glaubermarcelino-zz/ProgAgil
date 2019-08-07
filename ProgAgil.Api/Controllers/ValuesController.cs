@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProgAgil.Api.Data;
+using ProgAgil.Repository;
 
 namespace ProgAgil.Api.Controllers
 {
@@ -11,8 +11,8 @@ namespace ProgAgil.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public readonly DataContext _context;
-        public ValuesController(DataContext context)
+        public readonly ProAgilContext _context;
+        public ValuesController(ProAgilContext context)
         {
             this._context = context;
 
