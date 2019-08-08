@@ -1,4 +1,6 @@
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ProgAgil.Domain.Entities;
 
 namespace ProgAgil.Repository
@@ -34,33 +36,99 @@ namespace ProgAgil.Repository
         }
         #endregion
         #region EVENTO
-        public Task<Evento> ObterEventoAsyncPorId(int id, bool palestrante = false)
+        public async Task<Evento> ObterEventoAsyncPorId(int id, bool palestrante = false)
         {
-            throw new System.NotImplementedException();
+              IQueryable<Evento> query = _context.Eventos
+                                                .Include(c=>c.Lotes)
+                                                .Include(c=>c.RedesSociais);
+            if(palestrante){
+                query = query
+                            .Include(pe=>pe.PalestrantesEventos)
+                            .ThenInclude(p=>p.Palestrante);
+            }
+            query = query
+                        .OrderByDescending(d=>d.DataEvento)
+                        .Where(e=>e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
         }
-        public Task<Evento[]> ObterTodosEventosAsync(bool palestrante = false)
+        public async Task<Evento[]> ObterTodosEventosAsync(bool palestrante = false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Evento> query = _context.Eventos
+                                                .Include(c=>c.Lotes)
+                                                .Include(c=>c.RedesSociais);
+              if(palestrante){
+                query = query
+                            .Include(pe=>pe.PalestrantesEventos)
+                            .ThenInclude(p=>p.Palestrante);
+            }
+            query = query
+                        .OrderByDescending(d=>d.DataEvento);
+
+            return await query.ToArrayAsync();
         }
 
-        public Task<Evento[]> ObterTodosEventosAsyncPorTema(string tema, bool palestrante = false)
+        public async Task<Evento[]> ObterTodosEventosAsyncPorTema(string tema, bool palestrante = false)
         {
-            throw new System.NotImplementedException();
+             IQueryable<Evento> query = _context.Eventos
+                                                .Include(c=>c.Lotes)
+                                                .Include(c=>c.RedesSociais);
+            if(palestrante){
+                query = query
+                            .Include(pe=>pe.PalestrantesEventos)
+                            .ThenInclude(p=>p.Palestrante);
+            }
+            query = query
+                        .OrderByDescending(d=>d.DataEvento)
+                        .Where(e=>e.Tema.ToLower().Contains(tema.ToLower()));
+
+            return await query.ToArrayAsync();
         }
         #endregion
         #region PALESTRANTE
-        public Task<Palestrante> ObterPalestranteAsyncPorId(int PalestranteId)
+        public async Task<Palestrante> ObterPalestranteAsyncPorId(int PalestranteId,bool includeEventos=false)
         {
-            throw new System.NotImplementedException();
+             IQueryable<Palestrante> query = _context.Palestrantes
+                                                     .Include(r=>r.RedesSociais);
+              if(includeEventos){
+                  query = query.Include(pe=>pe.PalestrantesEventos)
+                                .ThenInclude(p=>p.Evento);
+
+              }
+            query = query
+                        .OrderBy(d=>d.Nome)
+                        .Where(p=>p.Id == PalestranteId);
+
+            return await query.FirstOrDefaultAsync();
         }
-        public Task<Palestrante[]> ObterTodosPalestrantesAsync()
+        public async Task<Palestrante[]> ObterTodosPalestrantesAsync(bool includeEventos=false)
         {
-            throw new System.NotImplementedException();
+             IQueryable<Palestrante> query = _context.Palestrantes
+                                                     .Include(r=>r.RedesSociais);
+              if(includeEventos){
+                  query = query.Include(pe=>pe.PalestrantesEventos)
+                                .ThenInclude(p=>p.Evento);
+
+              }
+            query = query
+                        .OrderBy(d=>d.Nome);
+
+            return await query.ToArrayAsync();
         }
 
-        public Task<Palestrante[]> ObterTodosPalestrantesAsyncPorNome(string nome)
+        public async Task<Palestrante[]> ObterTodosPalestrantesAsyncPorNome(string nome,bool includeEventos=false)
         {
-            throw new System.NotImplementedException();
+             IQueryable<Palestrante> query = _context.Palestrantes
+                                                     .Include(r=>r.RedesSociais);
+              if(includeEventos){
+                  query = query.Include(pe=>pe.PalestrantesEventos)
+                                .ThenInclude(p=>p.Evento);
+              }
+            query = query
+                        .OrderBy(d=>d.Nome)
+                        .Where(p=>p.Nome.ToLower().Contains(nome.ToLower()));
+
+            return await query.ToArrayAsync();
         }
         #endregion
         #region REDES SOCIAIS

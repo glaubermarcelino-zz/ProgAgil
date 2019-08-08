@@ -20,9 +20,9 @@ namespace ProgAgil.Repository
          #endregion
 
          #region Palestrantes
-            Task<Palestrante[]> ObterTodosPalestrantesAsyncPorNome(string nome);
-            Task<Palestrante[]> ObterTodosPalestrantesAsync();
-            Task<Palestrante> ObterPalestranteAsyncPorId(int PalestranteId);
+            Task<Palestrante[]> ObterTodosPalestrantesAsyncPorNome(string nome,bool includeEventos=false);
+            Task<Palestrante[]> ObterTodosPalestrantesAsync(bool includeEventos=false);
+            Task<Palestrante> ObterPalestranteAsyncPorId(int PalestranteId,bool includeEventos=false);
          #endregion
 
          #region Lotes
