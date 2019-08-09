@@ -30,7 +30,9 @@ namespace ProgAgil.Api
             //Adicionando o ProAgilContext
             services.AddDbContext<ProAgilContext>(options =>
                                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
+            
+            //Injeção do repository no services
+            services.AddScoped<IProAgilRepository,ProAgilRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
