@@ -38,7 +38,7 @@ namespace ProgAgil.Api.Controllers{
         {
             try
             {
-                var evento = await _repo.ObterEventoAsyncPorId(EventoId,true);
+                var evento = await _repo.ObterEventoPorIdAsync(EventoId,true);
                 if (evento != null)
                 {
                     return Ok(evento);
@@ -60,7 +60,7 @@ namespace ProgAgil.Api.Controllers{
         {
             try
             {
-                var evento = await _repo.ObterTodosEventosAsyncPorTema(Tema,true);
+                var evento = await _repo.ObterTodosEventosPorTemaAsync(Tema,true);
                 if (evento != null)
                 {
                     return Ok(evento);
@@ -101,7 +101,7 @@ namespace ProgAgil.Api.Controllers{
         public async Task<IActionResult> Put(int EventoId, Evento model)
         {
             try{
-                var evento = await _repo.ObterEventoAsyncPorId(EventoId);
+                var evento = await _repo.ObterEventoPorIdAsync(EventoId);
                 if (evento != null)return NotFound();
 
                 _repo.Atualizar(model);
@@ -123,7 +123,7 @@ namespace ProgAgil.Api.Controllers{
         {
               try
             {
-                var evento = await _repo.ObterEventoAsyncPorId(EventoId);
+                var evento = await _repo.ObterEventoPorIdAsync(EventoId);
                 if (evento == null) return NotFound();
 
                 _repo.Deletar(evento);

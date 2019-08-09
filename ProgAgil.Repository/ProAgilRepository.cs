@@ -36,7 +36,7 @@ namespace ProgAgil.Repository
         }
         #endregion
         #region EVENTO
-        public async Task<Evento> ObterEventoAsyncPorId(int id, bool palestrante = false)
+        public async Task<Evento> ObterEventoPorIdAsync(int id, bool palestrante = false)
         {
               IQueryable<Evento> query = _context.Eventos
                                                 .Include(c=>c.Lotes)
@@ -68,7 +68,7 @@ namespace ProgAgil.Repository
             return await query.ToArrayAsync();
         }
 
-        public async Task<Evento[]> ObterTodosEventosAsyncPorTema(string tema, bool palestrante = false)
+        public async Task<Evento[]> ObterTodosEventosPorTemaAsync(string tema, bool palestrante = false)
         {
              IQueryable<Evento> query = _context.Eventos
                                                 .Include(c=>c.Lotes)
@@ -86,7 +86,7 @@ namespace ProgAgil.Repository
         }
         #endregion
         #region PALESTRANTE
-        public async Task<Palestrante> ObterPalestranteAsyncPorId(int PalestranteId,bool includeEventos=false)
+        public async Task<Palestrante> ObterPalestrantePorIdAsync(int PalestranteId,bool includeEventos=false)
         {
              IQueryable<Palestrante> query = _context.Palestrantes
                                                      .Include(r=>r.RedesSociais);
@@ -116,7 +116,7 @@ namespace ProgAgil.Repository
             return await query.ToArrayAsync();
         }
 
-        public async Task<Palestrante[]> ObterTodosPalestrantesAsyncPorNome(string nome,bool includeEventos=false)
+        public async Task<Palestrante[]> ObterTodosPalestrantesPorNomeAsync(string nome,bool includeEventos=false)
         {
              IQueryable<Palestrante> query = _context.Palestrantes
                                                      .Include(r=>r.RedesSociais);
@@ -132,12 +132,12 @@ namespace ProgAgil.Repository
         }
         #endregion
         #region REDES SOCIAIS
-        public Task<RedeSocial> ObterRedesSociaisAsyncPorId(int id)
+        public Task<RedeSocial> ObterRedesSociaisPorIdAsync(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<RedeSocial[]> ObterRedesSociaisPorNome(string name)
+        public Task<RedeSocial[]> ObterRedesSociaisPorNomeAsync(string name)
         {
             throw new System.NotImplementedException();
         }
@@ -154,12 +154,12 @@ namespace ProgAgil.Repository
             throw new System.NotImplementedException();
         }
 
-        public Task<Lote> ObterTodosLotesAsyncPorId(int LoteId)
+        public Task<Lote> ObterTodosLotesPorIdAsync(int LoteId)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Lote[]> ObterTodosLotesAsyncPorNome(string Nome)
+        public Task<Lote[]> ObterTodosLotesPorNomeAsync(string Nome)
         {
             throw new System.NotImplementedException();
         }

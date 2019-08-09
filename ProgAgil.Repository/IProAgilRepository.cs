@@ -14,27 +14,27 @@ namespace ProgAgil.Repository
          #endregion
 
          #region Eventos
-            Task<Evento[]> ObterTodosEventosAsyncPorTema(string tema,bool palestrante=false);
+            Task<Evento[]> ObterTodosEventosPorTemaAsync(string tema,bool palestrante=false);
             Task<Evento[]> ObterTodosEventosAsync(bool palestrante=false);
-            Task<Evento> ObterEventoAsyncPorId(int id,bool palestrante=false);
+            Task<Evento> ObterEventoPorIdAsync(int id,bool palestrante=false);
          #endregion
 
          #region Palestrantes
-            Task<Palestrante[]> ObterTodosPalestrantesAsyncPorNome(string nome,bool includeEventos=false);
+            Task<Palestrante[]> ObterTodosPalestrantesPorNomeAsync(string nome,bool includeEventos=false);
             Task<Palestrante[]> ObterTodosPalestrantesAsync(bool includeEventos=false);
-            Task<Palestrante> ObterPalestranteAsyncPorId(int PalestranteId,bool includeEventos=false);
+            Task<Palestrante> ObterPalestrantePorIdAsync(int PalestranteId,bool includeEventos=false);
          #endregion
 
          #region Lotes
-            Task<Lote[]> ObterTodosLotesAsyncPorNome(string Nome);
+            Task<Lote[]> ObterTodosLotesPorNomeAsync(string Nome);
             Task<Lote[]> ObterTodosLotesAsync();
-            Task<Lote> ObterTodosLotesAsyncPorId(int LoteId);
+            Task<Lote> ObterTodosLotesPorIdAsync(int LoteId);
          #endregion
 
          #region Redes Sociais
-            Task<RedeSocial[]> ObterRedesSociaisPorNome(string name);
+            Task<RedeSocial[]> ObterRedesSociaisPorNomeAsync(string name);
             Task<RedeSocial[]> ObterTodasRedesSociaisAsync();
-            Task<RedeSocial> ObterRedesSociaisAsyncPorId(int id);
+            Task<RedeSocial> ObterRedesSociaisPorIdAsync(int id);
          #endregion
     }
 }

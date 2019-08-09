@@ -6,9 +6,9 @@ namespace ProgAgil.Domain.Entities
         public string Nome { get; set; }
         public string URL { get; set; }
         public int? EventoId { get; set; }
+        public Evento Evento { get;  }
         public int? PalestranteId { get; set; }
-        public Evento Evento { get; set; }
-        public Palestrante Palestrante { get; set; }
+        public Palestrante Palestrante { get;  }
 
     }
 }
