@@ -1,7 +1,7 @@
 import { RedeSocial } from './RedeSocial';
-import { PalestranteEvento } from './PalestranteEvento';
+import { Evento } from './Evento';
 
-export interface Palestrante{
+export interface Palestrante {
     id: number;
     nome: string;
     miniCurriculo: string;
@@ -9,5 +9,5 @@ export interface Palestrante{
     telefone: string;
     email: string;
     redesSociais: RedeSocial[];
-    palestrantesEventos: PalestranteEvento[];
+    palestrantesEventos: Evento[];
 }

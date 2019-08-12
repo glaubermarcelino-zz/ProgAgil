@@ -1,17 +1,22 @@
 <div class="form-inline">
   <div class="form-group mb-2">
-    Filtro: <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="filtroLista">
+    Filtro:
+    <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="buscar"
+      [(ngModel)]="filtroLista"
+    />
     <button class="btn btn-outline-sucess">Buscar</button>
   </div>
 </div>
-<h3>Filtro: {{filtroLista}}</h3>
+<h3>Filtro: {{ filtroLista }}</h3>
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
       <th>
-        <button class="btn btn-outline-primary" 
-        (click)="alternarImagem()">
-          Mostrar Imagem
+        <button class="btn btn-outline-primary" (click)="alternarImagem()">
+          <i class="{{ mostrarImagem ? 'fa fa-eye-slash' : 'fa fa-eye' }}"> </i>
         </button>
       </th>
       <th>#</th>
@@ -26,17 +31,35 @@
   <tbody class="tbody" *ngIf="eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
-        <img  *ngIf="mostrarImagem" src="http://localhost:4200/assets/{{evento.imagemURL}}" [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem"/>
+        <img
+          *ngIf="mostrarImagem"
+          src="http://localhost:4200/assets/{{ evento.imagemURL }}"
+          [style.width.px]="imagemLargura"
+          [style.margin.px]="imagemMargem"
+        />
       </td>
-      <td>{{evento.eventoId}}</td>
-      <td>{{evento.tema}}</td>
-      <td>{{evento.local}}</td>
-      <td>{{evento.dataEvento}}</td>
-      <td>{{evento.qtdPessoas}}</td>
-      <td>{{evento.lote}}</td>
+      <td>{{ evento.id }}</td>
+      <td>{{ evento.tema }}</td>
+      <td>{{ evento.local }}</td>
+      <td>{{ evento.dataEvento | datetimeFormat }}</td>
+      <td>{{ evento.qtdPessoas }}</td>
       <td>
-        <button class="btn btn-success"></button>
-        <button class="btn btn-danger"></button>
+        <div class="btn-group">
+          <div *ngIf="evento.lotes.length">
+            {{ evento.lotes[0].nome | uppercase }}
+          </div>
+          <div *ngIf="!evento.lotes.length">
+            Nenhum evento localizado!
+          </div>
+        </div>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-success" tooltip="Editar">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" tooltip="Excluir">
+          <i class="fa fa-eraser"></i>
+        </button>
       </td>
     </tr>
   </tbody>
