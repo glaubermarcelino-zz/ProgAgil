@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventoService } from '../_services/Evento.service';
 import { Evento } from '../_models/Evento';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-eventos',
@@ -12,7 +13,11 @@ export class EventosComponent implements OnInit {
   imagemLargura = 50;
   imagemMargem = 2;
   mostrarImagem = false;
-  _filtroLista: string;
+  eventosFiltrados: Evento[];
+
+  // tslint:disable-next-line:variable-name
+  _filtroLista = '';
+  modalRef: BsModalRef;
 
   get filtroLista(): string {
     return this._filtroLista;
@@ -22,9 +27,10 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this.filtroLista ? this.filtrarEvento(this.filtroLista) : this.eventos;
   }
 
-  eventosFiltrados: Evento[];
-
-  constructor(private service: EventoService) {
+  constructor(
+        private service: EventoService,
+        private modalService: BsModalService
+        ) {
 
   }
 filtrarEvento(filtrarPor: string): Evento[] {
@@ -40,9 +46,13 @@ filtrarEvento(filtrarPor: string): Evento[] {
   ngOnInit() {
     this.getEventos();
   }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
   getEventos() {
     this.service.getAllEventos()
     .subscribe(
+    // tslint:disable-next-line:variable-name
     (_eventos: Evento[]) => {
         this.eventos = _eventos;
         this.eventosFiltrados = _eventos;
