@@ -2,6 +2,9 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventoService } from '../_services/Evento.service';
 import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { defineLocale, BsLocaleService , ptBrLocale } from 'ngx-bootstrap';
+defineLocale('pt-br', ptBrLocale);
 
 @Component({
   selector: 'app-eventos',
@@ -14,6 +17,7 @@ export class EventosComponent implements OnInit {
   imagemMargem = 2;
   mostrarImagem = false;
   eventosFiltrados: Evento[];
+  registerForm: FormGroup;
 
   // tslint:disable-next-line:variable-name
   _filtroLista = '';
@@ -28,22 +32,25 @@ export class EventosComponent implements OnInit {
   }
 
   constructor(
-        private service: EventoService,
-        private modalService: BsModalService
-        ) {
-
+    private service: EventoService
+    ,private modalService: BsModalService
+    ,private fb: FormBuilder
+    ,private localeService: BsLocaleService
+  ) {
+      this.localeService.use('pt-br');
   }
-filtrarEvento(filtrarPor: string): Evento[] {
-  filtrarPor = filtrarPor.toLocaleLowerCase();
-  return this.eventos.filter(
-    evento => evento.tema
-              .toLocaleLowerCase()
-              .indexOf(filtrarPor) !== -1);
-}
-  alternarImagem()  {
+  filtrarEvento(filtrarPor: string): Evento[] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      evento => evento.tema
+        .toLocaleLowerCase()
+        .indexOf(filtrarPor) !== -1);
+  }
+  alternarImagem() {
     this.mostrarImagem = !this.mostrarImagem;
   }
   ngOnInit() {
+    this.validation();
     this.getEventos();
   }
   openModal(template: TemplateRef<any>) {
@@ -51,14 +58,28 @@ filtrarEvento(filtrarPor: string): Evento[] {
   }
   getEventos() {
     this.service.getAllEventos()
-    .subscribe(
-    // tslint:disable-next-line:variable-name
-    (_eventos: Evento[]) => {
-        this.eventos = _eventos;
-        this.eventosFiltrados = _eventos;
-      }
-    , error => {
-        console.error(error);
+      .subscribe(
+        // tslint:disable-next-line:variable-name
+        (_eventos: Evento[]) => {
+          this.eventos = _eventos;
+          this.eventosFiltrados = _eventos;
+        }
+        , error => {
+          console.error(error);
+        });
+  }
+  salvarAlteracao() {
+
+  }
+  validation() {
+    this.registerForm = this.fb.group({
+      tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      local: ['', [Validators.required]],
+      dataEvento: ['', [Validators.required]],
+      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
+      imagemURL: ['', [Validators.required]],
+      telefone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 }
