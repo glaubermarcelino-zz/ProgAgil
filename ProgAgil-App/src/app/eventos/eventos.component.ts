@@ -13,15 +13,14 @@ defineLocale('pt-br', ptBrLocale);
 })
 export class EventosComponent implements OnInit {
   eventos: Evento[];
+  evento: Evento;
   imagemLargura = 50;
   imagemMargem = 2;
   mostrarImagem = false;
   eventosFiltrados: Evento[];
   registerForm: FormGroup;
-
   // tslint:disable-next-line:variable-name
   _filtroLista = '';
-  modalRef: BsModalRef;
 
   get filtroLista(): string {
     return this._filtroLista;
@@ -30,56 +29,66 @@ export class EventosComponent implements OnInit {
     this._filtroLista = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEvento(this.filtroLista) : this.eventos;
   }
-
   constructor(
     private service: EventoService
-    ,private modalService: BsModalService
-    ,private fb: FormBuilder
-    ,private localeService: BsLocaleService
-  ) {
+    , private modalService: BsModalService
+    , private fb: FormBuilder
+    , private localeService: BsLocaleService
+    ) {
       this.localeService.use('pt-br');
-  }
-  filtrarEvento(filtrarPor: string): Evento[] {
-    filtrarPor = filtrarPor.toLocaleLowerCase();
-    return this.eventos.filter(
-      evento => evento.tema
+    }
+    filtrarEvento(filtrarPor: string): Evento[] {
+      filtrarPor = filtrarPor.toLocaleLowerCase();
+      return this.eventos.filter(
+        evento => evento.tema
         .toLocaleLowerCase()
         .indexOf(filtrarPor) !== -1);
-  }
-  alternarImagem() {
-    this.mostrarImagem = !this.mostrarImagem;
-  }
-  ngOnInit() {
-    this.validation();
-    this.getEventos();
-  }
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
-  getEventos() {
-    this.service.getAllEventos()
-      .subscribe(
-        // tslint:disable-next-line:variable-name
-        (_eventos: Evento[]) => {
-          this.eventos = _eventos;
-          this.eventosFiltrados = _eventos;
+      }
+      alternarImagem() {
+        this.mostrarImagem = !this.mostrarImagem;
+      }
+      ngOnInit() {
+        this.validation();
+        this.getEventos();
+      }
+      openModal(template: any) {
+        template.show();
+      }
+      getEventos() {
+        this.service.getAllEventos()
+        .subscribe(
+          // tslint:disable-next-line:variable-name
+          (_eventos: Evento[]) => {
+            this.eventos = _eventos;
+            this.eventosFiltrados = _eventos;
+          }
+          , error => {
+            console.error(error);
+          });
         }
-        , error => {
-          console.error(error);
-        });
-  }
-  salvarAlteracao() {
-
-  }
-  validation() {
-    this.registerForm = this.fb.group({
-      tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      local: ['', [Validators.required]],
-      dataEvento: ['', [Validators.required]],
-      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
-      imagemURL: ['', [Validators.required]],
-      telefone: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
-    });
-  }
-}
+        salvarAlteracao(template: any) {
+          if (this.registerForm.valid) {
+              this.evento = Object.assign({}, this.registerForm.value);
+              this.service.postEvento(this.evento)
+                          .subscribe((novoEvento: Evento) => {
+                              template.hide();
+                              this.registerForm.reset();
+                              console.log(novoEvento);
+                              this.getEventos();
+                          }, error => {
+                              console.log('Ocorreu um erro ao salvar o evento');
+                          });
+          }
+        }
+        validation() {
+          this.registerForm = this.fb.group({
+            tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+            local: ['', [Validators.required]],
+            dataEvento: ['', [Validators.required]],
+            qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
+            imagemURL: ['', [Validators.required]],
+            telefone: ['', [Validators.required]],
+            email: ['', [Validators.required, Validators.email]]
+          });
+        }
+      }
