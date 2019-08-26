@@ -34,6 +34,8 @@ namespace ProgAgil.Api
             //Injeção do repository no services
             services.AddScoped<IProAgilRepository,ProAgilRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //Adicionando o automapper
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
