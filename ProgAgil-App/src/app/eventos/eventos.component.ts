@@ -19,6 +19,8 @@ export class EventosComponent implements OnInit {
   mostrarImagem = false;
   eventosFiltrados: Evento[];
   registerForm: FormGroup;
+  modoSalvar: string;
+  bodyDeletarEvento = '';
   // tslint:disable-next-line:variable-name
   _filtroLista = '';
 
@@ -29,29 +31,53 @@ export class EventosComponent implements OnInit {
     this._filtroLista = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEvento(this.filtroLista) : this.eventos;
   }
-  constructor(
-    private service: EventoService
-    , private modalService: BsModalService
-    , private fb: FormBuilder
-    , private localeService: BsLocaleService
-    ) {
-      this.localeService.use('pt-br');
+  constructor(private service: EventoService, private modalService: BsModalService  , private fb: FormBuilder  , private localeService: BsLocaleService) {
+    this.localeService.use('pt-br');
+  }
+  filtrarEvento(filtrarPor: string): Evento[] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      evento => evento.tema
+      .toLocaleLowerCase()
+      .indexOf(filtrarPor) !== -1);
     }
-    filtrarEvento(filtrarPor: string): Evento[] {
-      filtrarPor = filtrarPor.toLocaleLowerCase();
-      return this.eventos.filter(
-        evento => evento.tema
-        .toLocaleLowerCase()
-        .indexOf(filtrarPor) !== -1);
-      }
-      alternarImagem() {
-        this.mostrarImagem = !this.mostrarImagem;
-      }
-      ngOnInit() {
-        this.validation();
-        this.getEventos();
+    alternarImagem() {
+      this.mostrarImagem = !this.mostrarImagem;
+    }
+    ngOnInit() {
+      this.validation();
+      this.getEventos();
+    }
+    editarEvento(evento: Evento, template: any) {
+      this.modoSalvar = 'put';
+      this.openModal(template);
+      this.evento = evento;
+      console.log(this.evento);
+      this.registerForm.patchValue(evento);
+
+    }
+    novoEvento(template: any) {
+      this.modoSalvar = 'post';
+      this.openModal(template);
+    }
+
+    excluirEvento(evento: Evento, template: any) {
+      this.openModal(template);
+      this.evento = evento;
+      this.bodyDeletarEvento = `Tem certeza que deseja excluir o Evento: ${evento.tema}, Código: ${evento.id}?`;
+    }
+    confirmeDelete(template: any) {
+      this.service.deleteEvento(this.evento.id).subscribe(
+        () => {
+          template.hide();
+          this.getEventos();
+        }, error => {
+          console.log(error);
+        }
+        );
       }
       openModal(template: any) {
+        this.registerForm.reset();
         template.show();
       }
       getEventos() {
@@ -68,16 +94,27 @@ export class EventosComponent implements OnInit {
         }
         salvarAlteracao(template: any) {
           if (this.registerForm.valid) {
+            if (this.modoSalvar === 'post') {
               this.evento = Object.assign({}, this.registerForm.value);
               this.service.postEvento(this.evento)
-                          .subscribe((novoEvento: Evento) => {
-                              template.hide();
-                              this.registerForm.reset();
-                              console.log(novoEvento);
-                              this.getEventos();
-                          }, error => {
-                              console.log('Ocorreu um erro ao salvar o evento');
-                          });
+              .subscribe(() => {
+                template.hide();
+                this.registerForm.reset();
+                this.getEventos();
+              }, error => {
+                console.log('Ocorreu um erro ao salvar o evento');
+              });
+            } else {
+              this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+              this.service.putEvento(this.evento)
+              .subscribe(() => {
+                template.hide();
+                this.registerForm.reset();
+                this.getEventos();
+              }, error => {
+                console.log('Ocorreu um erro ao salvar o evento');
+              });
+            }
           }
         }
         validation() {
@@ -92,3 +129,4 @@ export class EventosComponent implements OnInit {
           });
         }
       }
+      
