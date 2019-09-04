@@ -62,8 +62,8 @@ namespace ProgAgil.Repository
                             .Include(pe=>pe.PalestrantesEventos)
                             .ThenInclude(p=>p.Palestrante);
             }
-            query = query
-                        .OrderByDescending(d=>d.DataEvento);
+            query = query.AsNoTracking()
+                        .OrderBy(d=>d.Id);
 
             return await query.ToArrayAsync();
         }

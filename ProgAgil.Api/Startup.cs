@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ProgAgil.Repository;
+using AutoMapper;
 
 namespace ProgAgil.Api
 {
@@ -35,7 +36,7 @@ namespace ProgAgil.Api
             services.AddScoped<IProAgilRepository,ProAgilRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //Adicionando o automapper
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

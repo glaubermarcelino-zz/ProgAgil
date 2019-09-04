@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ProgAgil.Api.Dtos
 {
     public class PalestranteDto
@@ -8,6 +10,6 @@ namespace ProgAgil.Api.Dtos
         public string Telefone { get; set; }
         public string Email { get; set; }
         public List<RedeSocialDto> RedesSociais { get; set; }
-        public List<PalestranteEventoDto> Eventos { get; set; }
+        public List<PalestranteDto> Eventos { get; set; }
     }
 }

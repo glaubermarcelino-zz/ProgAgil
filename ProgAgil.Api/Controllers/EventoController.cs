@@ -1,29 +1,38 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProgAgil.Api.Dtos;
 using ProgAgil.Domain.Entities;
 using ProgAgil.Repository;
 
-namespace ProgAgil.Api.Controllers{
+namespace ProgAgil.Api.Controllers
+{
 
-[Route("api/[controller]")]
-[ApiController]
-    public class EventoController :ControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EventoController : ControllerBase
     {
         private readonly IProAgilRepository _repo;
 
-        public EventoController(IProAgilRepository repo)
+        public IMapper _mapper { get; }
+
+        public EventoController(IProAgilRepository repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
-         // GET api/Evento
+        // GET api/Evento
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _repo.ObterTodosEventosAsync();
+                var eventos = await _repo.ObterTodosEventosAsync();
+
+                var results = _mapper.Map<IEnumerable<EventoDto>>(eventos);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -38,10 +47,12 @@ namespace ProgAgil.Api.Controllers{
         {
             try
             {
-                var evento = await _repo.ObterEventoPorIdAsync(EventoId,true);
-                if (evento != null)
+                var evento = await _repo.ObterEventoPorIdAsync(EventoId, true);
+
+                var result = _mapper.Map<EventoDto>(evento);
+                if (result != null)
                 {
-                    return Ok(evento);
+                    return Ok(result);
                 }
                 else
                 {
@@ -54,13 +65,13 @@ namespace ProgAgil.Api.Controllers{
             }
         }
 
-         // GET api/Evento/nassau
+        // GET api/Evento/nassau
         [HttpGet("{Tema}")]
         public async Task<IActionResult> Get(string Tema)
         {
             try
             {
-                var evento = await _repo.ObterTodosEventosPorTemaAsync(Tema,true);
+                var evento = await _repo.ObterTodosEventosPorTemaAsync(Tema, true);
                 if (evento != null)
                 {
                     return Ok(evento);
@@ -78,41 +89,46 @@ namespace ProgAgil.Api.Controllers{
 
         // POST api/Evento
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(EventoDto model)
         {
             try
             {
-                   _repo.Adicionar(model);
-            if (await _repo.SaveChangesAsync())
+                var evento = _mapper.Map<Evento>(model);
+                _repo.Adicionar(evento);
+                if (await _repo.SaveChangesAsync())
+                {
+                    return Created($"api/Evento/{evento.Id}", evento);
+                }
+            }
+            catch (System.Exception e)
             {
-               return Created($"api/Evento/{model.Id}",model);
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um falha ao acessar o banco de dados " + e.Message);
             }
-            }
-            catch (System.Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um falha ao acessar o banco de dados");
-            }
-         
-            return StatusCode(StatusCodes.Status403Forbidden,$"Ocorreu um erro ao inserir {model}");
+
+            return StatusCode(StatusCodes.Status403Forbidden, $"Ocorreu um erro ao inserir {model}");
         }
 
         // PUT api/Evento/5
         [HttpPut("{EventoId}")]
-        public async Task<IActionResult> Put(int EventoId, Evento model)
+        public async Task<IActionResult> Put(int EventoId, EventoDto model)
         {
-            try{
-                var evento = await _repo.ObterEventoPorIdAsync(EventoId);
-                if (evento != null)return NotFound();
+            try
+            {
 
-                _repo.Atualizar(model);
-                if(await _repo.SaveChangesAsync())
+                var evento = _mapper.Map<Evento>(model);
+
+                var result = await _repo.ObterEventoPorIdAsync(EventoId);
+                if (result == null) return NotFound();
+
+                _repo.Atualizar(evento);
+                if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"api/Evento/{model.Id}",model);
+                    return Created($"api/Evento/{evento.Id}", evento);
                 }
             }
             catch (System.Exception)
             {
-               return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao acessar a base de dados");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao acessar a base de dados");
             }
             return BadRequest();
         }
@@ -121,20 +137,20 @@ namespace ProgAgil.Api.Controllers{
         [HttpDelete("{EventoId}")]
         public async Task<IActionResult> Delete(int EventoId)
         {
-              try
+            try
             {
                 var evento = await _repo.ObterEventoPorIdAsync(EventoId);
                 if (evento == null) return NotFound();
 
                 _repo.Deletar(evento);
-                if(await _repo.SaveChangesAsync())
+                if (await _repo.SaveChangesAsync())
                 {
                     return Ok();
                 }
             }
             catch (System.Exception)
             {
-               return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao acessar a base de dados");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao acessar a base de dados");
             }
             return BadRequest();
         }
