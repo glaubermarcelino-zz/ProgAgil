@@ -13,17 +13,16 @@ namespace ProgAgil.Api.Helpers
             .ForMember(dest => dest.Palestrantes, opt =>
             {
                 opt.MapFrom(src => src.PalestrantesEventos.Select(x => x.Palestrante).ToList());
-            });
-            CreateMap<EventoDto, Evento>();
-            CreateMap<PalestranteDto, Palestrante>();
+            }).ReverseMap();
+
             CreateMap<Palestrante, PalestranteDto>().ForMember(dest => dest.Eventos, opt =>
             {
                 opt.MapFrom(src => src.PalestrantesEventos.Select(x => x.Evento).ToList());
-            });
-            CreateMap<RedeSocial, RedeSocialDto>();
-            CreateMap<RedeSocialDto, RedeSocial>();
-            CreateMap<Lote, LoteDto>();
-            CreateMap<LoteDto, Lote>();
+            }).ReverseMap();
+
+            CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();
+
+            CreateMap<Lote, LoteDto>().ReverseMap();
         }
     }
 }

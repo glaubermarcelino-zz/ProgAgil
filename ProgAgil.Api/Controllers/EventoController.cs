@@ -32,7 +32,7 @@ namespace ProgAgil.Api.Controllers
             {
                 var eventos = await _repo.ObterTodosEventosAsync();
 
-                var results = _mapper.Map<IEnumerable<EventoDto>>(eventos);
+                var results = _mapper.Map<EventoDto[]>(eventos);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -72,9 +72,10 @@ namespace ProgAgil.Api.Controllers
             try
             {
                 var evento = await _repo.ObterTodosEventosPorTemaAsync(Tema, true);
-                if (evento != null)
+                var results = _mapper.Map<EventoDto[]>(evento);
+                if (results != null)
                 {
-                    return Ok(evento);
+                    return Ok(results);
                 }
                 else
                 {
