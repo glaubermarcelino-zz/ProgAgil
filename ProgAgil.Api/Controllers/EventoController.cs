@@ -98,7 +98,7 @@ namespace ProgAgil.Api.Controllers
                 _repo.Adicionar(evento);
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"api/Evento/{evento.Id}", evento);
+                    return Created($"api/Evento/{evento.Id}", _mapper.Map<EventoDto>(evento));
                 }
             }
             catch (System.Exception e)
@@ -115,16 +115,16 @@ namespace ProgAgil.Api.Controllers
         {
             try
             {
-
-                var evento = _mapper.Map<Evento>(model);
-
                 var result = await _repo.ObterEventoPorIdAsync(EventoId);
                 if (result == null) return NotFound();
 
-                _repo.Atualizar(evento);
+                //Efetua o mapeamento das alterações de acordo com o item buscado
+                _mapper.Map(model,result);
+
+                _repo.Atualizar(result);
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"api/Evento/{evento.Id}", evento);
+                    return Created($"api/Evento/{model.Id}", _mapper.Map<EventoDto>(result));
                 }
             }
             catch (System.Exception)
