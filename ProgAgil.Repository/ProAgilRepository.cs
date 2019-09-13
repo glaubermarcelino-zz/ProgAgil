@@ -36,19 +36,21 @@ namespace ProgAgil.Repository
         }
         #endregion
         #region EVENTO
-        public async Task<Evento> ObterEventoPorIdAsync(int id, bool palestrante = false)
+        public async Task<Evento> ObterEventoPorIdAsync(int EventoId, bool palestrante = false)
         {
               IQueryable<Evento> query = _context.Eventos
                                                 .Include(c=>c.Lotes)
                                                 .Include(c=>c.RedesSociais);
             if(palestrante){
                 query = query
+                            
                             .Include(pe=>pe.PalestrantesEventos)
                             .ThenInclude(p=>p.Palestrante);
             }
             query = query
-                        .OrderByDescending(d=>d.DataEvento)
-                        .Where(e=>e.Id == id);
+                        .AsNoTracking()
+                        .OrderBy(d=>d.Id)
+                        .Where(e=>e.Id == EventoId);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -79,7 +81,7 @@ namespace ProgAgil.Repository
                             .ThenInclude(p=>p.Palestrante);
             }
             query = query
-                        .OrderByDescending(d=>d.DataEvento)
+                        .OrderByDescending(d=>d.Tema)
                         .Where(e=>e.Tema.ToLower().Contains(tema.ToLower()));
 
             return await query.ToArrayAsync();
@@ -96,7 +98,7 @@ namespace ProgAgil.Repository
 
               }
             query = query
-                        .OrderBy(d=>d.Nome)
+                        .OrderBy(d=>d.Id)
                         .Where(p=>p.Id == PalestranteId);
 
             return await query.FirstOrDefaultAsync();
@@ -111,7 +113,7 @@ namespace ProgAgil.Repository
 
               }
             query = query
-                        .OrderBy(d=>d.Nome);
+                        .OrderBy(d=>d.Id);
 
             return await query.ToArrayAsync();
         }
