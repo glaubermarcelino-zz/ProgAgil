@@ -11,7 +11,7 @@ namespace ProgAgil.Api.Dtos
         public string Nome { get; set; }
         public string MiniCurriculo { get; set; }
         public string ImagemURL { get; set; }
-        [Required]
+        [Required(ErrorMessage="O campo '{0}' é obrigatório!")]
         [Phone()]
         public string Telefone { get; set; }
 
