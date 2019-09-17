@@ -4,6 +4,8 @@ import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { defineLocale, BsLocaleService , ptBrLocale } from 'ngx-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
@@ -31,7 +33,11 @@ export class EventosComponent implements OnInit {
     this._filtroLista = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEvento(this.filtroLista) : this.eventos;
   }
-  constructor(private service: EventoService, private modalService: BsModalService  , private fb: FormBuilder  , private localeService: BsLocaleService) {
+  constructor(private service: EventoService
+            , private modalService: BsModalService
+            , private fb: FormBuilder
+            , private localeService: BsLocaleService
+            , private toastService: ToastrService) {
     this.localeService.use('pt-br');
   }
   filtrarEvento(filtrarPor: string): Evento[] {
@@ -71,7 +77,9 @@ export class EventosComponent implements OnInit {
         () => {
           template.hide();
           this.getEventos();
+          this.toastService.success('Deletado com sucesso', 'Sucesso');
         }, error => {
+          this.toastService.error(`Erro ao tentar deletar ${error}`, 'Erro');
           console.log(error);
         }
         );
@@ -89,7 +97,7 @@ export class EventosComponent implements OnInit {
             this.eventosFiltrados = _eventos;
           }
           , error => {
-            console.error(error);
+            this.toastService.error(`Erro ao tentar carregar ${error}`, 'Erro');
           });
         }
         salvarAlteracao(template: any) {
@@ -101,7 +109,9 @@ export class EventosComponent implements OnInit {
                 template.hide();
                 this.registerForm.reset();
                 this.getEventos();
+                this.toastService.success('Inserido com sucesso', 'Sucesso');
               }, error => {
+                this.toastService.error(`Erro ao inserir ${error}`, 'Erro');
                 console.log('Ocorreu um erro ao salvar o evento');
               });
             } else {
@@ -111,8 +121,10 @@ export class EventosComponent implements OnInit {
                 template.hide();
                 this.registerForm.reset();
                 this.getEventos();
+                this.toastService.success('Atualizado com sucesso', 'Sucesso');
               }, error => {
-                console.log('Ocorreu um erro ao salvar o evento');
+                this.toastService.error(`Erro ao atualizar ${error}`, 'Erro');
+                console.log(`Ocorreu um erro ${error} ao atualizar o evento`);
               });
             }
           }
@@ -129,4 +141,3 @@ export class EventosComponent implements OnInit {
           });
         }
       }
-      

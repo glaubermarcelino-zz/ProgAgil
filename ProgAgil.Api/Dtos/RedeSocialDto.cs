@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace ProgAgil.Api.Dtos
 {
     public class RedeSocialDto
