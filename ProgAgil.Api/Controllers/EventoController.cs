@@ -41,6 +41,24 @@ namespace ProgAgil.Api.Controllers
             }
         }
 
+        // Upload Files
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload()
+        {
+            try
+            {
+                var file = Request.Files[0];
+                var pathFile = Path.Combine("Resources","Images");
+                var pathToSave = Path.Combine("","");
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um falha ao acessar o banco de dados");
+            }
+            return BadRequest("Não foi possível efetuar upload do arquivo!");
+        }
+
         // GET api/Evento/5
         [HttpGet("{EventoId}")]
         public async Task<IActionResult> Get(int EventoId)
