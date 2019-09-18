@@ -14,6 +14,7 @@ defineLocale('pt-br', ptBrLocale);
   styleUrls: ['./eventos.component.css']
 })
 export class EventosComponent implements OnInit {
+  titulo = 'Eventos';
   eventos: Evento[];
   evento: Evento;
   imagemLargura = 50;

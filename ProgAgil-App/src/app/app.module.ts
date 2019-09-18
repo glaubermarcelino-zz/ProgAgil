@@ -6,23 +6,28 @@ import { TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule } from
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
-import { EventosComponent } from './eventos/eventos.component';
 import { NavComponent } from './nav/nav.component';
 
+import { ToastrModule } from 'ngx-toastr';
 import { DatetimeFormatPipe } from './_helpers/datetimeFormat.pipe';
+
+import { EventosComponent } from './eventos/eventos.component';
 import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ContatosComponent } from './contatos/contatos.component';
+import { TituloComponent } from './_shared/titulo/titulo.component';
 
 @NgModule({
    declarations: [
       AppComponent,
-      EventosComponent,
       NavComponent,
-      DatetimeFormatPipe,
+      EventosComponent,
       PalestrantesComponent,
-      DashboardComponent
+      DashboardComponent,
+      ContatosComponent,
+      TituloComponent,
+      DatetimeFormatPipe
    ],
    imports: [
       BrowserModule,
@@ -33,7 +38,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
-      ToastrModule.forRoot(),
+      ToastrModule.forRoot({
+         preventDuplicates: true,
+         timeOut: 3000,
+         progressBar: true
+      }),
       BrowserAnimationsModule,
       ReactiveFormsModule
    ],
