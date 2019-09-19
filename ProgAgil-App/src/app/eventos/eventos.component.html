@@ -160,19 +160,19 @@ role="dialog" aria-labelledby="dialog-sizes-name1">
     <div class="form-group col-md-4">
       <label>Data e Hora</label>
       <input
-      type="text"
-      class="form-control"
-      bsDatepicker
-      [(ngModel)]="dataEvento"
-      value="{{dataEvento | datetimeFormat}}"
-      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }"
-      [ngClass]="{
-        'is-invalid':
-        registerForm.get('dataEvento').errors &&
-        registerForm.get('dataEvento').touched
-      }"
-      formControlName="dataEvento"
-      placeholder=""
+            type="text"
+            class="form-control"
+            bsDatepicker
+            [(ngModel)]="dataEvento"
+            value="{{dataEvento | datetimeFormat}}"
+            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }"
+            [ngClass]="{
+              'is-invalid':
+              registerForm.get('dataEvento').errors &&
+              registerForm.get('dataEvento').touched
+            }"
+            formControlName="dataEvento"
+            placeholder=""
       />
       <div  *ngIf="registerForm.get('dataEvento').hasError('required') && registerForm.get('dataEvento').touched" class="invalid-feedback">
         Data e hora do evento é obrigatório!
@@ -202,17 +202,29 @@ role="dialog" aria-labelledby="dialog-sizes-name1">
     </div>
     <div class="form-group col-md-9">
       <label>Imagem</label>
-      <input
-      type="text"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid':
-        registerForm.get('imagemURL').errors &&
-        registerForm.get('imagemURL').touched
-      }"
-      formControlName="imagemURL"
-      placeholder=""
-      />
+      <table>
+        <tr>
+          <td>
+            <button class="btn btn-success" (click)="file.click()">Carregar Imagem</button>
+            <label style="margin-left:10px;">{{FileName}}</label>
+            <input
+            type="file"
+            #file
+            (change)="onFileChange($event)"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+              registerForm.get('imagemURL').errors &&
+              registerForm.get('imagemURL').touched
+            }"
+            style="display: none"
+            formControlName="imagemURL"
+            placeholder=""
+            />
+          </td>
+        </tr>
+      </table>
+      
       <div  *ngIf="registerForm.get('imagemURL').hasError('required') && registerForm.get('imagemURL').touched" class="invalid-feedback">
         Imagem é obrigatório!
       </div>

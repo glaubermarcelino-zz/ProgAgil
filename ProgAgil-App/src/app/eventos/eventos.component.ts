@@ -14,6 +14,8 @@ defineLocale('pt-br', ptBrLocale);
   styleUrls: ['./eventos.component.css']
 })
 export class EventosComponent implements OnInit {
+  file: File;
+  FileName: string;
   titulo = 'Eventos';
   eventos: Evento[];
   evento: Evento;
@@ -86,6 +88,7 @@ export class EventosComponent implements OnInit {
         );
       }
       openModal(template: any) {
+        this.FileName = '';
         this.registerForm.reset();
         template.show();
       }
@@ -96,21 +99,39 @@ export class EventosComponent implements OnInit {
           (_eventos: Evento[]) => {
             this.eventos = _eventos;
             this.eventosFiltrados = _eventos;
+            console.log(this.eventos);
           }
           , error => {
             this.toastService.error(`Erro ao tentar carregar ${error}`, 'Erro');
           });
         }
+        onFileChange(event) {
+          const reader = new FileReader();
+
+          if (event.target.files && event.target.files.length) {
+              this.file = event.target.files;
+              console.log(this.file);
+              this.FileName = this.file[0].name;
+          }
+        }
         salvarAlteracao(template: any) {
           if (this.registerForm.valid) {
             if (this.modoSalvar === 'post') {
               this.evento = Object.assign({}, this.registerForm.value);
+              this.service.postUpload(this.file).subscribe();
+
+              const nomeArquivo = this.evento.imagemURL.split('\\', 3);
+              this.evento.imagemURL = nomeArquivo[2];
+              console.log(nomeArquivo);
+              console.log(this.evento.imagemURL);
+
               this.service.postEvento(this.evento)
               .subscribe(() => {
                 template.hide();
                 this.registerForm.reset();
                 this.getEventos();
                 this.toastService.success('Inserido com sucesso', 'Sucesso');
+                this.FileName = '';
               }, error => {
                 this.toastService.error(`Erro ao inserir ${error}`, 'Erro');
                 console.log('Ocorreu um erro ao salvar o evento');

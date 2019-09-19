@@ -13,6 +13,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ProgAgil.Repository;
 using AutoMapper;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
 
 namespace ProgAgil.Api
 {
@@ -53,8 +56,17 @@ namespace ProgAgil.Api
             }
 
             //app.UseHttpsRedirection();
-            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(x=>x.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                        );
             app.UseStaticFiles();
+            app.UseStaticFiles(
+                new StaticFileOptions{
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),@"Resources")),
+                    RequestPath = new PathString("/Resources")
+                    }
+            );
             app.UseMvc();
         }
     }
