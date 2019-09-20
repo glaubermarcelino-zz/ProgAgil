@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class EventoService {
   private baseUrl = 'http://localhost:5000/api/Evento';
-  
+
   constructor(private http: HttpClient) { }
-  
+
   getAllEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.baseUrl);
   }
@@ -24,9 +24,12 @@ export class EventoService {
     return this.http.post(this.baseUrl, evento);
   }
   postUpload(file: File) {
-    const FileToUpload  = <File>file[0];
+    const FileToUpload  = <File> file[0];
     const formData = new FormData();
     formData.append('foto', FileToUpload, FileToUpload.name);
+
+    console.log(`${this.baseUrl}/Upload`);
+    console.log(formData);
 
     return this.http.post(`${this.baseUrl}/Upload`, formData);
   }
