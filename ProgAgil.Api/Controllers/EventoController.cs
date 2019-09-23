@@ -45,7 +45,7 @@ namespace ProgAgil.Api.Controllers
 
         // Upload Files
         [HttpPost("Upload")]
-        public IActionResult Upload()
+        public async Task<IActionResult> Upload()
         {
             try
             {
@@ -58,7 +58,7 @@ namespace ProgAgil.Api.Controllers
                     var fullPath = Path.Combine(pathToSave,filename.Replace("\""," ").Trim());
 
                     using(var stream = new FileStream(fullPath,FileMode.Create)){
-                        file.CopyTo(stream);
+                        await file.CopyToAsync(stream);
                     }
                 }
                 return Ok();

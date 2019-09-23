@@ -23,14 +23,10 @@ export class EventoService {
   postEvento(evento: Evento) {
     return this.http.post(this.baseUrl, evento);
   }
-  postUpload(file: File) {
+  postUpload(file: File, name: string) {
     const FileToUpload  = <File> file[0];
     const formData = new FormData();
-    formData.append('foto', FileToUpload, FileToUpload.name);
-
-    console.log(`${this.baseUrl}/Upload`);
-    console.log(formData);
-
+    formData.append('foto', FileToUpload, name);
     return this.http.post(`${this.baseUrl}/Upload`, formData);
   }
   putEvento(evento: Evento) {
