@@ -16,6 +16,7 @@ using AutoMapper;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
+using ProgAgil.Domain.Identity;
 
 namespace ProgAgil.Api
 {
@@ -35,9 +36,11 @@ namespace ProgAgil.Api
             services.AddDbContext<ProAgilContext>(options =>
                                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             
+            IdentityBuilder builder = services.AddIdentityCore<User>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //Injeção do repository no services
             services.AddScoped<IProAgilRepository,ProAgilRepository>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //Adicionando o automapper
             services.AddAutoMapper(typeof(Startup));
         }
