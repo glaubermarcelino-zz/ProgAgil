@@ -17,6 +17,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using ProgAgil.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProgAgil.Api
 {
@@ -35,12 +36,25 @@ namespace ProgAgil.Api
             //Adicionando o ProAgilContext
             services.AddDbContext<ProAgilContext>(options =>
                                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            
-            IdentityBuilder builder = services.AddIdentityCore<User>();
+
+            IdentityBuilder builder = services.AddIdentityCore<User>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+            });
+            builder = new IdentityBuilder(builder.UserType,typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<ProAgilContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //Injeção do repository no services
-            services.AddScoped<IProAgilRepository,ProAgilRepository>();
+            services.AddScoped<IProAgilRepository, ProAgilRepository>();
             //Adicionando o automapper
             services.AddAutoMapper(typeof(Startup));
         }
@@ -59,16 +73,17 @@ namespace ProgAgil.Api
             }
 
             //app.UseHttpsRedirection();
-            app.UseCors(x=>x.AllowAnyOrigin()
+            app.UseCors(x => x.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                         );
             app.UseStaticFiles();
             app.UseStaticFiles(
-                new StaticFileOptions{
-                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),@"Resources")),
+                new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                     RequestPath = new PathString("/Resources")
-                    }
+                }
             );
             app.UseMvc();
         }
