@@ -18,6 +18,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using ProgAgil.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ProgAgil.Api
 {
@@ -37,6 +42,7 @@ namespace ProgAgil.Api
             services.AddDbContext<ProAgilContext>(options =>
                                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+            //Tratamento para a senha
             IdentityBuilder builder = services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -46,13 +52,37 @@ namespace ProgAgil.Api
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
             });
+            //Mapeamento de classes para as regras de autorização
             builder = new IdentityBuilder(builder.UserType,typeof(Role), builder.Services);
             builder.AddEntityFrameworkStores<ProAgilContext>();
             builder.AddRoleValidator<RoleValidator<Role>>();
             builder.AddRoleManager<RoleManager<Role>>();
             builder.AddSignInManager<SignInManager<User>>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters{
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                                                .GetBytes(Configuration.GetSection("AppSettings:Token").Value))
+                            
+                        };
+                    }
+            );
+            
+            services.AddMvc( options => {
+                //Toda requisição via Controller passa a ser tratada por esta política de acesso
+                var policy = new AuthorizationPolicyBuilder()
+                                    .RequireAuthenticatedUser()
+                                    .Build();
+                //Filtro aplicado para autorizar de acordo com a politica de segurança
+                options.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            //Passa a ignorar os retornos com loop da api
+            .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             //Injeção do repository no services
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
             //Adicionando o automapper
@@ -72,6 +102,7 @@ namespace ProgAgil.Api
                 app.UseHsts();
             }
 
+             app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin()
                             .AllowAnyHeader()

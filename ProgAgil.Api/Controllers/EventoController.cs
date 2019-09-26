@@ -65,9 +65,8 @@ namespace ProgAgil.Api.Controllers
             }
             catch (System.Exception)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um falha ao acessar o banco de dados");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Não foi possível efetuar upload do arquivo!");
             }
-            return BadRequest("Não foi possível efetuar upload do arquivo!");
         }
 
         // GET api/Evento/5
