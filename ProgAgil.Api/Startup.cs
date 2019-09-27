@@ -51,6 +51,12 @@ namespace ProgAgil.Api
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
+                
+                //Definindo o máximo de tentativas que pode errar a senha
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                //Definição de tempo de bloqueio padrão da senha
+                options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0,5,0);
             });
             //Mapeamento de classes para as regras de autorização
             builder = new IdentityBuilder(builder.UserType,typeof(Role), builder.Services);
@@ -65,8 +71,9 @@ namespace ProgAgil.Api
                         options.TokenValidationParameters = new TokenValidationParameters{
                             ValidateIssuerSigningKey = true,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                                                .GetBytes(Configuration.GetSection("AppSettings:Token").Value))
-                            
+                                                .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience  = false
                         };
                     }
             );

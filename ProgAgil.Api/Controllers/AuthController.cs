@@ -72,6 +72,7 @@ namespace ProgAgil.Api.Controllers
           try
           {
               var user = await _userManager.FindByNameAsync(userLogin.UserName);
+              //False = Indica que não será efetuado o bloqueio da conta do usuário
               var result = await _signInManager.CheckPasswordSignInAsync(user,userLogin.Password,false);
               
               if (result.Succeeded)
@@ -117,6 +118,7 @@ namespace ProgAgil.Api.Controllers
 
             //Criando a chave criptografada
             SigningCredentials creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha512Signature);
+
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
                 //Não usar dessa forma pois pode ser utilizado data de caducidade atrazando o relógio
