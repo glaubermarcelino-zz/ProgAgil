@@ -23,11 +23,11 @@
         <input class="form-control" type="text" formControlName="email"
           [ngClass]="{ 'is-invalid': registerForm.get('email').errors && 
                                      registerForm.get('email').touched}"
-          placeholder="Insira o Nome Completo"/>
+          placeholder="Insira o e-mail"/>
         <div *ngIf="registerForm.get('email').hasError('required') &&
                     registerForm.get('email').touched"
           class="invalid-feedback">
-          email é obrigatório.
+          E-Mail é obrigatório.
         </div>
       </div>
       <div class="form-group">
