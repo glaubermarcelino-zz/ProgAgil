@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnInit {
       }, {validator : this.compararSenhas})
     });
   }
-  cadastrarusuario() {
+  cadastrarUsuario() {
     console.log('usuario cadastrado');
   }
   compararSenhas(fb: FormGroup) {
