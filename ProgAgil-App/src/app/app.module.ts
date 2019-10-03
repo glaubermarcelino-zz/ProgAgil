@@ -22,6 +22,8 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { LoginComponent } from './user/login/login.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { EventoService } from './_services/Evento.service';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
    declarations: [
@@ -35,7 +37,9 @@ import { EventoService } from './_services/Evento.service';
       DatetimeFormatPipe,
       UserComponent,
       LoginComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      SidebarComponent,
+      FooterComponent
    ],
    imports: [
       BrowserModule,
