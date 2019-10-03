@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
     }
   }
 login() {
-  console.log(this.model);
   this.authService
       .login(this.model)
       .subscribe(() => {

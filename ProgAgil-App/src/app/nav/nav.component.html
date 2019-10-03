@@ -13,7 +13,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   
-  <div *ngIf="loggedIn()" class="collapse navbar-collapse" id="navbarsExampleDefault">
+  <div *ngIf="!loggedIn()" class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="eventos">
@@ -30,24 +30,24 @@
     </ul>
   </div>
 
-  <ul  *ngIf="loggedIn()" class="navbar-nav">
+  <ul  *ngIf="!loggedIn()" class="navbar-nav">
     <li class="nav-item dropdown" dropdown>
       <!-- <img src="../assets/glauber.jpg" Height="10%" Width="10%"/> -->
         <a dropdownToggle 
             class="nav-link dropdown-toggle" 
-            href="#" 
             id="navbarDropDownMenuLink" 
             data-toggle="dropdown" 
             aria-haspopup="true" 
             aria-expanded="false">
-            Glauber Marcelino
+            {{ this.authService.decodeToken?this.authService.decodeToken.unique_name:'' }}
       </a>
       <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Perfil</a>
+        <a class="dropdown-item">Perfil</a>
         <div role="separator" class="divider"></div>
-        <a class="dropdown-item" href="#">Sair</a>
+        <a class="dropdown-item" (click)="logout()">Sair</a>
       </div>
     </li>
   </ul>
+  <button *ngIf="loggedIn()" class="btn btn-success" (click)="Entrar()">Entrar</button>
 </div>
 </nav>
