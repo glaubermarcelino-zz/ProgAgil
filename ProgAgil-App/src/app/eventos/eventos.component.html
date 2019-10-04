@@ -32,7 +32,7 @@
       <th>Data</th>
       <th>Qtd. Pessoas</th>
       <th>Lote</th>
-      <th>Opções</th>
+      <th colspan="2" class="text-center">Opções</th>
     </tr>
   </thead>
   <tbody class="tbody" *ngIf="eventos && eventos.length">
@@ -74,6 +74,14 @@
         (click)="excluirEvento(evento, confirm)">
         <i class="fa fa-eraser"></i>
       </button>
+    </td>
+    <td>
+      <a 
+        class="btn btn-sm btn-warning" 
+        tooltip="Edição Detalhada"
+        [routerLink]="['/evento',evento.id,'edit']">
+        <i class="fa fa-edit"></i>
+    </a>
     </td>
   </tr>
 </tbody>

@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule, TabsModule } from 'ngx-bootstrap';
+import { NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,9 +22,9 @@ import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { EventoService } from './_services/Evento.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 
 @NgModule({
    declarations: [
@@ -39,7 +40,8 @@ import { FooterComponent } from './footer/footer.component';
       LoginComponent,
       RegistrationComponent,
       SidebarComponent,
-      FooterComponent
+      FooterComponent,
+      EventoEditComponent
    ],
    imports: [
       BrowserModule,
@@ -48,6 +50,8 @@ import { FooterComponent } from './footer/footer.component';
       FormsModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      TabsModule.forRoot(),
+      NgxMaskModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       ToastrModule.forRoot({
