@@ -31,25 +31,32 @@ export class EventoEditComponent implements OnInit {
   }
   validation() {
     this.registerForm = this.fb.group({
-      tema      : ['',  [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      local     : ['', [Validators.required]],
-      dataEvento: ['', [Validators.required]],
-      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
-      imagemURL : [''],
-      telefone  : ['', [Validators.required]],
-      email     : ['', [Validators.required, Validators.email]],
-      lotes     : this.fb.group({
-                                  nome      : ['', Validators.required],
-                                  quantidade: ['', Validators.required],
-                                  preco     : ['', Validators.required],
-                                  dataInicio: [''],
-                                  dataFim   : ['']
-                              }),
-      redesSociais     : this.fb.group({
-                                        nome: ['', Validators.required],
-                                        url : ['', Validators.required]
-                                      })
+      tema              : ['',  [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      local             : ['', [Validators.required]],
+      dataEvento        : ['', [Validators.required]],
+      qtdPessoas        : ['', [Validators.required, Validators.max(120000)]],
+      imagemURL         : [''],
+      telefone          : ['', [Validators.required]],
+      email             : ['', [Validators.required, Validators.email]],
+      lotes             : this.fb.array([this.criaLote()]),
+      redesSociais      : this.fb.array([this.criaredeSocial()])
     });
+  }
+
+  criaLote(): FormGroup {
+    return this.fb.group({
+      nome      : ['', Validators.required],
+      quantidade: ['', Validators.required],
+      preco     : ['', Validators.required],
+      dataInicio: [''],
+      dataFim   : ['']
+    });
+  }
+  criaredeSocial(): FormGroup {
+      return  this.fb.group({
+        nome: ['', Validators.required],
+        url : ['', Validators.required]
+      });
   }
   onFileChange(file: FileList) {
     const reader = new FileReader();

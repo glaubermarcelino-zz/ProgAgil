@@ -88,8 +88,8 @@
         </tab>
         <tab heading="Lotes">
           <div>
-            <div >
-              <fieldset formGroupName="lotes" class="form-group">
+            <div formArrayName="lotes" *ngFor="let lote of lotes;let i = index">
+              <fieldset formGroupName="i" class="form-group">
                 <legend class="d-flex justify-content-between capitalize">
                   {{'Lotes'}}
                   <button class="btn btn-sm btn-warning mb-1">remove</button>
