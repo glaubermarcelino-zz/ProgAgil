@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EventoService } from 'src/app/_services/Evento.service';
 import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Evento } from 'src/app/_models/Evento';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-eventoEdit',
@@ -14,11 +16,20 @@ export class EventoEditComponent implements OnInit {
   titulo = 'Editar Evento';
   registerForm: FormGroup;
   imagemURL = 'assets/img/upload.png';
-  evento = {};
+  evento: Evento = new Evento();
+  fileNameToUpdate: string;
+
+  get lotes(): FormArray {
+    return <FormArray> this.registerForm.get('lotes');
+  }
+
+  get redesSociais(): FormArray {
+    return <FormArray> this.registerForm.get('redesSociais');
+  }
 
   constructor(
     private service: EventoService,
-    private modalService: BsModalService,
+    private router: ActivatedRoute,
     private fb: FormBuilder,
     private localeService: BsLocaleService,
     private toastService: ToastrService
@@ -28,6 +39,7 @@ export class EventoEditComponent implements OnInit {
 
   ngOnInit() {
     this.validation();
+    this.carregarEvento();
   }
   validation() {
     this.registerForm = this.fb.group({
@@ -58,9 +70,37 @@ export class EventoEditComponent implements OnInit {
         url : ['', Validators.required]
       });
   }
+
+  adicionarLote() {
+    this.lotes.push(this.criaLote());
+  }
+
+  adicionarRedeSocial() {
+    this.redesSociais.push(this.criaredeSocial());
+  }
+  removerRedeSocial(id: number) {
+    this.redesSociais.removeAt(id);
+  }
+
+  removerLote(id: number) {
+    this.lotes.removeAt(id);
+  }
+
   onFileChange(file: FileList) {
     const reader = new FileReader();
     reader.onload = (event: any) => this.imagemURL = event.target.result;
     reader.readAsDataURL(file[0]);
+  }
+  carregarEvento() {
+    const idEvento = +this.router.snapshot.paramMap.get('id');
+    this.service.getEventoById(idEvento)
+        .subscribe((evento: Evento) => {
+          this.evento = evento;
+          this.fileNameToUpdate = evento.imagemURL.toString();
+          this.evento.imagemURL = '';
+          this.registerForm.patchValue(evento);
+        }, error => {
+            this.toastService.error(`Ocorreu um erro ao buscar o evento Nº ${idEvento}`);
+        });
   }
 }
