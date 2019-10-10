@@ -1,0 +1,8 @@
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\bin\Debug\netstandard2.0\Dirf.Domain.deps.json
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\bin\Debug\netstandard2.0\Dirf.Domain.dll
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\bin\Debug\netstandard2.0\Dirf.Domain.pdb
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\obj\Debug\netstandard2.0\Dirf.Domain.csprojAssemblyReference.cache
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\obj\Debug\netstandard2.0\Dirf.Domain.AssemblyInfoInputs.cache
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\obj\Debug\netstandard2.0\Dirf.Domain.AssemblyInfo.cs
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\obj\Debug\netstandard2.0\Dirf.Domain.dll
+C:\glauber\projetos\NetCore\stactus\Dirf.Domain\obj\Debug\netstandard2.0\Dirf.Domain.pdb

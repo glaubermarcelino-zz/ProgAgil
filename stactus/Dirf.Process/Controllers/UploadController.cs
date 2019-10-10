@@ -404,10 +404,10 @@ namespace Dirf.Process.Controllers
             //Utilizar guid para ocultar o caminho do arquivo
             throw new NotImplementedException();
         }
-
+    }
         public class FormData
         {
             public string Note { get; set; }
         }
 
-    }
+}
