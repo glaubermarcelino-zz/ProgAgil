@@ -1,8 +1,0 @@
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\bin\Debug\netstandard2.0\Dirf.Services.deps.json
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\bin\Debug\netstandard2.0\Dirf.Services.dll
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\bin\Debug\netstandard2.0\Dirf.Services.pdb
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\obj\Debug\netstandard2.0\Dirf.Services.csprojAssemblyReference.cache
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\obj\Debug\netstandard2.0\Dirf.Services.AssemblyInfoInputs.cache
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\obj\Debug\netstandard2.0\Dirf.Services.AssemblyInfo.cs
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\obj\Debug\netstandard2.0\Dirf.Services.dll
-C:\glauber\projetos\NetCore\stactus\Dirf.Services\obj\Debug\netstandard2.0\Dirf.Services.pdb

@@ -1,6 +1,0 @@
-C:\glauber\projetos\NetCore\stactus\Dirf.Process\obj\Debug\netcoreapp3.0\Dirf.Process.csprojAssemblyReference.cache
-C:\glauber\projetos\NetCore\stactus\Dirf.Process\obj\Debug\netcoreapp3.0\staticwebassets\Dirf.Process.StaticWebAssets.Manifest.cache
-C:\glauber\projetos\NetCore\stactus\Dirf.Process\obj\Debug\netcoreapp3.0\staticwebassets\Dirf.Process.StaticWebAssets.xml
-C:\glauber\projetos\NetCore\stactus\Dirf.Process\obj\Debug\netcoreapp3.0\Dirf.Process.MvcApplicationPartsAssemblyInfo.cache
-C:\glauber\projetos\NetCore\stactus\Dirf.Process\obj\Debug\netcoreapp3.0\Dirf.Process.AssemblyInfoInputs.cache
-C:\glauber\projetos\NetCore\stactus\Dirf.Process\obj\Debug\netcoreapp3.0\Dirf.Process.AssemblyInfo.cs
