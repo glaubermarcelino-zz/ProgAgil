@@ -26,22 +26,22 @@ namespace ProgAgil.Api.Controllers
             _repo = repo;
         }
 
-        // GET api/Evento
-        // [HttpGet]
-        // public async Task<IActionResult> Get()
-        // {
-        //     try
-        //     {
-        //         var eventos = await _repo.ObterTodosEventosAsync();
+        //GET api/Evento
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var eventos = await _repo.ObterTodosEventosAsync();
 
-        //         var results = _mapper.Map<EventoDto[]>(eventos);
-        //         return Ok(results);
-        //     }
-        //     catch (System.Exception)
-        //     {
-        //         return this.StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um falha ao acessar o banco de dados");
-        //     }
-        // }
+                var results = _mapper.Map<EventoDto[]>(eventos);
+                return Ok(results);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um falha ao acessar o banco de dados");
+            }
+        }
 
         // Upload Files
         [HttpPost("Upload")]
@@ -94,27 +94,27 @@ namespace ProgAgil.Api.Controllers
         }
 
         // GET api/Evento/nassau
-        // [HttpGet("Tema/{Tema}")]
-        // public async Task<IActionResult> GetTema(string Tema)
-        // {
-        //     try
-        //     {
-        //         var evento = await _repo.ObterTodosEventosPorTemaAsync(Tema, true);
-        //         var results = _mapper.Map<EventoDto[]>(evento);
-        //         if (results != null)
-        //         {
-        //             return Ok(results);
-        //         }
-        //         else
-        //         {
-        //             return this.StatusCode(StatusCodes.Status404NotFound, $"Tema '{Tema}' não localizado");
-        //         }
-        //     }
-        //     catch (System.Exception)
-        //     {
-        //         return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao acessar a base de dados");
-        //     }
-        // }
+        [HttpGet("Tema/{Tema}")]
+        public async Task<IActionResult> GetTema(string Tema)
+        {
+            try
+            {
+                var evento = await _repo.ObterTodosEventosPorTemaAsync(Tema, true);
+                var results = _mapper.Map<EventoDto[]>(evento);
+                if (results != null)
+                {
+                    return Ok(results);
+                }
+                else
+                {
+                    return this.StatusCode(StatusCodes.Status404NotFound, $"Tema '{Tema}' não localizado");
+                }
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao acessar a base de dados");
+            }
+        }
 
         // POST api/Evento
         [HttpPost]

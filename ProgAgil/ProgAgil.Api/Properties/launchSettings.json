@@ -17,10 +17,21 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "Watch": {
+      "commandName": "Watch",
+      "executablePath": "dotnet.exe",
+      "workingDirectory": "$(ProjectDir)",
+      "commandLineArgs": "watch run",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "ProgAgil.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/Auth",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
