@@ -50,8 +50,8 @@ namespace ProgAgil.Api.Controllers
             try
             {
                 var file = Request.Form.Files[0];
-                var fodlerName = Path.Combine("Resources","Images");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(),fodlerName);
+                var folderName = Path.Combine("Resources","Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(),folderName);
 
                 if(file.Length > 0){
                     var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;

@@ -114,7 +114,6 @@ export class EventosComponent implements OnInit {
 
     if (event.target.files && event.target.files.length) {
       this.file = event.target.files;
-      console.log(this.file);
       this.FileName = this.file[0].name;
     }
   }
@@ -170,8 +169,8 @@ export class EventosComponent implements OnInit {
           }
         );
     } else {
-      this.evento.imagemURL = this.fileNameToUpdate;
-      this.service.postUpload(this.file, this.fileNameToUpdate)
+      this.evento.imagemURL = this.FileName;
+      this.service.postUpload(this.file, this.FileName)
         .subscribe(
           () => {
             this.dataAtual = new Date().getMilliseconds().toString();
