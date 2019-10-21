@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProgAgil.Api.Dtos;
 using ProgAgil.Domain.Entities;
 using ProgAgil.Repository;
+
 
 namespace ProgAgil.Api.Controllers
 {
@@ -143,8 +145,30 @@ namespace ProgAgil.Api.Controllers
         {
             try
             {
+                List<int>idlotes = new List<int>();
+                List<int>idredesSociais = new List<int>();
+
+                model.Lotes.ForEach(lote => idlotes.Add(lote.Id));
+                model.RedesSociais.ForEach(redeSocial => idlotes.Add(redeSocial.Id));
+
                 var result = await _repo.ObterEventoPorIdAsync(EventoId);
                 if (result == null) return NotFound();
+
+                //Removendo os lotes não enviados
+                if(idlotes.Count > 0)
+                result
+                    .Lotes
+                    .Where(Lote => !idlotes.Contains(Lote.Id))
+                    .ToList()
+                    .ForEach(lote=> _repo.Deletar(lote));
+
+               //Removendo as redesSociais não enviadas
+               if(idredesSociais.Count > 0)
+                result
+                    .RedesSociais
+                    .Where(redeSocial => !idredesSociais.Contains(redeSocial.Id))
+                    .ToList()
+                    .ForEach(r=> _repo.Deletar(r));
 
                 //Efetua o mapeamento das alterações de acordo com o item buscado
                 _mapper.Map(model,result);
