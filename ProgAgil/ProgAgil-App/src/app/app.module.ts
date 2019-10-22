@@ -21,6 +21,7 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
 import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
+import { Login2Component } from './user/login2/login2.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -38,6 +39,7 @@ import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
       DatetimeFormatPipe,
       UserComponent,
       LoginComponent,
+      Login2Component,
       RegistrationComponent,
       SidebarComponent,
       FooterComponent,

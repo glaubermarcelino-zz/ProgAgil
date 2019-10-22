@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
+import { Login2Component } from './user/login2/login2.component';
 import { AuthGuard } from './auth/auth.guard';
 import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'user', component: UserComponent,
     children: [
       {path: 'login', component: LoginComponent},
+      {path: 'login2', component: Login2Component},
       {path: 'registration', component: RegistrationComponent}
     ]
   },
