@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,10 @@ namespace ProgAgil.Repository
         {
             _context.Remove(entity);
         }
-
+        public void DeletarLista<T>(List<T> entity) where T : class
+        {
+            _context.RemoveRange(entity);
+        }
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync()) > 0;
@@ -165,6 +169,8 @@ namespace ProgAgil.Repository
         {
             throw new System.NotImplementedException();
         }
+
+       
         #endregion
     }
 }

@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule, TabsModule } from 'ngx-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -54,6 +55,7 @@ import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
       BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),
       NgxMaskModule.forRoot(),
+      NgxCurrencyModule,
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       ToastrModule.forRoot({

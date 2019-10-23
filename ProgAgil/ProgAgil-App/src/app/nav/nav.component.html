@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" *ngIf="showMenu()">
   <div class="container">
     <a class="navbar-brand" routerLink="dashboard">ProÁgil</a>
     <button
@@ -38,8 +38,9 @@
             id="navbarDropDownMenuLink" 
             data-toggle="dropdown" 
             aria-haspopup="true" 
+            style="cursor: pointer;text-transform: capitalize;"
             aria-expanded="false">
-            {{ this.authService.decodeToken?this.authService.decodeToken.unique_name:'' }}
+            {{ userName() }}
       </a>
       <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item">Perfil</a>

@@ -375,7 +375,7 @@ h5, .tinyText
 }
 
 .illustrationClass {
-    background-image: url(assets\img\illustration.jpg);
+    background-image: url(/ProgAgil/ProgAgil-App/src/assets/img/illustration.jpg);
 }
 
 /* Form factor: snapped WAB (for WAB to work in snapped view, the content wrapper width has to be set to 260px) */
