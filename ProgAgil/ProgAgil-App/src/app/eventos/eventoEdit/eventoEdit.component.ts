@@ -20,6 +20,8 @@ export class EventoEditComponent implements OnInit {
   file            : File;
   fileNameToUpdate: string;
   dataAtual       = '';
+  dataInicio      : string;
+  dataFim         : string;
 
   get lotes(): FormArray {
     return <FormArray> this.registerForm.get('lotes');

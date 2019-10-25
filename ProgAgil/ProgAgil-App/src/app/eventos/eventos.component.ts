@@ -27,6 +27,7 @@ export class EventosComponent implements OnInit {
   modoSalvar: string;
   bodyDeletarEvento = '';
   dataAtual: string;
+  dataEvento: string;
   // tslint:disable-next-line:variable-name
   _filtroLista = '';
   fileNameToUpdate: string;
