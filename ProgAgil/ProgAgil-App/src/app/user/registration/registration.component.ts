@@ -33,12 +33,13 @@ export class RegistrationComponent implements OnInit {
       });
     }
     cadastrarUsuario() {
-      console.log(this.registerForm.valid);
+      
       if (this.registerForm.valid) {
         this.user = Object.assign(
           {password: this.registerForm.get('passwords.password').value},
           this.registerForm.value
           );
+
           return this.authService
           .register(this.user)
           .subscribe(() => {
@@ -49,10 +50,10 @@ export class RegistrationComponent implements OnInit {
               erro.forEach(element => {
                 switch (element.code) {
                   case 'DuplicateUserName':
-                  this.toastService.error('Cadastro duplicado!');
+                    this.toastService.error('Cadastro duplicado!');
                   break;
                   default:
-                  this.toastService.error(`Ocorreu um erro ao cadastrar! Código :${element.code}`);
+                    this.toastService.error(`Ocorreu um erro ao cadastrar! Código :${element.code}`);
                   break;
                 }
               });

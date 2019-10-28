@@ -49,9 +49,9 @@ namespace ProgAgil.Api.Controllers
         {
             try
             {
-                var user = _mapper.Map<User>(userDto);
-                var result = await _userManager.CreateAsync(user, userDto.Password);
-                var userToResult = _mapper.Map<UserDto>(user);
+                var user            = _mapper.Map<User>(userDto);
+                var result          = await _userManager.CreateAsync(user, userDto.Password);
+                var userToResult    = _mapper.Map<UserDto>(user);
 
                 if (result.Succeeded)
                 {
