@@ -101,7 +101,7 @@ export class EventoEditComponent implements OnInit {
     }
 
     carregarEvento() {
-      const idEvento = this.router.snapshot.paramMap.get('id');
+      const idEvento = +this.router.snapshot.paramMap.get('id');
       this.service.getEventoById(idEvento)
       .subscribe((evento: Evento) => {
         this.evento = evento;
@@ -123,7 +123,6 @@ export class EventoEditComponent implements OnInit {
       });
     }
     salvarEvento() {
-      
       this.evento = Object.assign({ id: this.evento.id },  this.registerForm.value);
         this.evento.imagemURL = this.fileNameToUpdate;
         this.uploadImagem();
