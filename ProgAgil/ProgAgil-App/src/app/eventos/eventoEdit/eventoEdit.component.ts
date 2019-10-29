@@ -48,7 +48,7 @@ export class EventoEditComponent implements OnInit {
     validation() {
       this.registerForm = this.fb.group({
         id                : [],
-        tema              : ['',  [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+        tema              : ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
         local             : ['', [Validators.required]],
         dataEvento        : ['', [Validators.required]],
         qtdPessoas        : ['', [Validators.required, Validators.max(120000)]],
@@ -62,7 +62,7 @@ export class EventoEditComponent implements OnInit {
 
     criaLote(lote: any): FormGroup {
       return this.fb.group({
-        id        : [lote.idEvento],
+        id        : [lote.id],
         nome      : [lote.nome, Validators.required],
         quantidade: [lote.quantidade, Validators.required],
         preco     : [lote.preco, Validators.required],
@@ -101,7 +101,7 @@ export class EventoEditComponent implements OnInit {
     }
 
     carregarEvento() {
-      const idEvento = +this.router.snapshot.paramMap.get('id');
+      const idEvento = this.router.snapshot.paramMap.get('id');
       this.service.getEventoById(idEvento)
       .subscribe((evento: Evento) => {
         this.evento = evento;
@@ -123,6 +123,7 @@ export class EventoEditComponent implements OnInit {
       });
     }
     salvarEvento() {
+      
       this.evento = Object.assign({ id: this.evento.id },  this.registerForm.value);
         this.evento.imagemURL = this.fileNameToUpdate;
         this.uploadImagem();
@@ -138,10 +139,6 @@ export class EventoEditComponent implements OnInit {
         }
         uploadImagem() {
           if (this.registerForm.get('imagemURL').value !== '') {
-
-            console.log(this.file);
-            console.log(this.fileNameToUpdate);
-
             this.service
                 .postUpload(this.file, this.fileNameToUpdate)
                 .subscribe(

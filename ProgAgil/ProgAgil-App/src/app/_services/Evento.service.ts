@@ -31,6 +31,7 @@ export class EventoService {
     return this.http.post(`${this.baseUrl}/Upload`, formData);
   }
   putEvento(evento: Evento) {
+    
     return this.http.put(`${this.baseUrl}/${evento.id}`, evento);
   }
    deleteEvento(Id: number): Observable<Evento> {
