@@ -1,4 +1,6 @@
 using apiTrello._shared;
+using apiTrello.Domain;
+using apiTrello.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +9,20 @@ using System.Threading.Tasks;
 
 namespace apiTrello.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class QuadroController : ControllerBase
     {
+        public IQuadroRepository _repository { get; set; }
+        public QuadroController(IQuadroRepository repository)
+        {
+            _repository = repository;
+        }
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            using(HttpClient client = new HttpClient())
-            {
-                var response = await client.GetStringAsync(TrelloConfig.GetEndPoint())
-                                            .ConfigureAwait(false);
-                if(response == null) return BadRequest();
-                return Ok(Newtonsoft.Json.JsonConvert
-                                    .DeserializeObject<List<Quadro>>(response));
-           }
+            var result = await _repository.GetAll();
+            return Ok(result);
         }
 
          [HttpGet("{idQuadro}")]

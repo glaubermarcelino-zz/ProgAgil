@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace apiTrello.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MembroController : ControllerBase
     {
