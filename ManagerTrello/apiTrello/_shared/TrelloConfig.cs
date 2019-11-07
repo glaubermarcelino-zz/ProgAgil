@@ -1,4 +1,4 @@
-namespace apiTrello._shared
+namespace apiTrello
 {
     public static class TrelloConfig
     {

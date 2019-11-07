@@ -1,17 +1,14 @@
-using System;
+using apiTrello._shared;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using apiTrello._shared;
-using apiTrello.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace apiTrello.Controllers
 {
+    [Route("api/[Controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class QuadroController : ControllerBase
     {
         [HttpGet]
