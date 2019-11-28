@@ -40,7 +40,7 @@ namespace ProgAgil.Api
         {
             //Adicionando o ProAgilContext
             services.AddDbContext<ProAgilContext>(options =>
-                                options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+                                options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
             //Tratamento para a senha
             IdentityBuilder builder = services.AddIdentityCore<User>(options =>

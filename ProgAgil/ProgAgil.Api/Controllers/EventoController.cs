@@ -152,7 +152,7 @@ namespace ProgAgil.Api.Controllers
                 List<int>idredesSociais = new List<int>();
 
                 model.Lotes.ForEach(lote => idlotes.Add(lote.Id));
-                model.RedesSociais.ForEach(redeSocial => idlotes.Add(redeSocial.Id));
+                model.RedesSociais.ForEach(redeSocial => idredesSociais.Add(redeSocial.Id));
 
 
                 //Removendo os lotes não enviados

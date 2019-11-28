@@ -37,11 +37,11 @@ namespace ProgAgil.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetUser")]
-        public async Task<IActionResult> GetUser()
-        {
-            return Ok(new UserDto());
-        }
+        // [HttpGet("GetUser")]
+        // public Task<IActionResult> GetUser()
+        // {
+        //     return Ok(new UserDto());
+        // }
 
         [HttpPost("Register")]
         [AllowAnonymous]

@@ -7,28 +7,28 @@ import { Evento } from 'src/app/_models/Evento';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'app-eventoEdit',
   templateUrl: './eventoEdit.component.html',
   styleUrls: ['./eventoEdit.component.css']
 })
 export class EventoEditComponent implements OnInit {
-
-  titulo          = 'Editar Evento';
-  registerForm    : FormGroup;
-  imagemURL       = 'assets/img/upload.png';
-  evento          : Evento = new Evento();
-  file            : File;
+  titulo = 'Editar Evento';
+  registerForm: FormGroup;
+  imagemURL = 'assets/img/upload.png';
+  evento: Evento = new Evento();
+  file: File;
   fileNameToUpdate: string;
-  dataAtual       = '';
-  dataInicio      : string;
-  dataFim         : string;
+  dataAtual = '';
+  dataInicio: string;
+  dataFim: string;
 
   get lotes(): FormArray {
-    return <FormArray> this.registerForm.get('lotes');
+    return this.registerForm.get('lotes') as FormArray ;
   }
 
   get redesSociais(): FormArray {
-    return <FormArray> this.registerForm.get('redesSociais');
+    return this.registerForm.get('redesSociais') as FormArray;
   }
 
   constructor(
@@ -37,114 +37,124 @@ export class EventoEditComponent implements OnInit {
     private fb: FormBuilder,
     private localeService: BsLocaleService,
     private toastService: ToastrService
-    ) {
-      this.localeService.use('pt-br');
-    }
+  ) {
+    this.localeService.use('pt-br');
+  }
 
-    ngOnInit() {
-      this.validation();
-      this.carregarEvento();
-    }
-    validation() {
-      this.registerForm = this.fb.group({
-        id                : [],
-        tema              : ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-        local             : ['', [Validators.required]],
-        dataEvento        : ['', [Validators.required]],
-        qtdPessoas        : ['', [Validators.required, Validators.max(120000)]],
-        imagemURL         : [''],
-        telefone          : ['', [Validators.required]],
-        email             : ['', [Validators.required, Validators.email]],
-        lotes             : this.fb.array([]),
-        redesSociais      : this.fb.array([])
-      });
-    }
+  ngOnInit() {
+    this.validation();
+    this.carregarEvento();
+  }
+  validation() {
+    this.registerForm = this.fb.group({
+      id: [],
+      tema: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(50)]
+      ],
+      local: ['', [Validators.required]],
+      dataEvento: ['', [Validators.required]],
+      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
+      imagemURL: [''],
+      telefone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      lotes: this.fb.array([]),
+      redesSociais: this.fb.array([])
+    });
+  }
 
-    criaLote(lote: any): FormGroup {
-      return this.fb.group({
-        id        : [lote.id],
-        nome      : [lote.nome, Validators.required],
-        quantidade: [lote.quantidade, Validators.required],
-        preco     : [lote.preco, Validators.required],
-        dataInicio: [lote.dataInicio],
-        dataFim   : [lote.dataFim]
-      });
-    }
-    criaredeSocial(redeSocial: any): FormGroup {
-      return  this.fb.group({
-        id  : [redeSocial.id],
-        nome: [redeSocial.nome, Validators.required],
-        url : [redeSocial.url, Validators.required]
-      });
-    }
+  criaLote(lote: any): FormGroup {
 
-    adicionarLote() {
-      this.lotes.push(this.criaLote({id: 0}));
-    }
+    const formLote =  this.fb.group({
+                        id: [lote.id],
+                        nome: [lote.nome, Validators.required],
+                        quantidade: [lote.quantidade, Validators.required],
+                        preco: [lote.preco, Validators.required],
+                        dataInicio: [lote.dataInicio],
+                        dataFim: [lote.dataFim]
+                      });
+    return formLote;
+  }
+  criaredeSocial(redeSocial: any): FormGroup {
+    return this.fb.group({
+      id: [redeSocial.id],
+      nome: [redeSocial.nome, Validators.required],
+      url: [redeSocial.url, Validators.required]
+    });
+  }
 
-    adicionarRedeSocial() {
-      this.redesSociais.push(this.criaredeSocial({ id: 0}));
-    }
-    removerRedeSocial(id: number) {
-      this.redesSociais.removeAt(id);
-    }
+  adicionarLote() {
+    this.lotes.push(this.criaLote({ id: 0 }));
+  }
 
-    removerLote(id: number) {
-      this.lotes.removeAt(id);
-    }
+  adicionarRedeSocial() {
+    this.redesSociais.push(this.criaredeSocial({ id: 0 }));
+  }
+  removerRedeSocial(id: number) {
+    this.redesSociais.removeAt(id);
+  }
 
-    onFileChange(evento: any, file: FileList) {
-      const reader  = new FileReader();
-      reader.onload = (event: any) => this.imagemURL = event.target.result;
-      this.file     = evento.target.files;
-      reader.readAsDataURL(file[0]);
-    }
+  removerLote(id: number) {
+    this.lotes.removeAt(id);
+  }
 
-    carregarEvento() {
-      const idEvento = +this.router.snapshot.paramMap.get('id');
-      this.service.getEventoById(idEvento)
-      .subscribe((evento: Evento) => {
+  onFileChange(evento: any, file: FileList) {
+    const reader = new FileReader();
+    reader.onload = (event: any) => (this.imagemURL = event.target.result);
+    this.file = evento.target.files;
+    reader.readAsDataURL(file[0]);
+  }
+
+  carregarEvento() {
+    const idEvento = +this.router.snapshot.paramMap.get('id');
+
+    this.service.getEventoById(idEvento).subscribe(
+      (evento: Evento) => {
         this.evento = evento;
         this.fileNameToUpdate = evento.imagemURL.toString();
         this.dataAtual = new Date().getMilliseconds().toString();
-        this.imagemURL = `http://localhost:5000/Resources/Images/${ evento.imagemURL }?_ts=${this.dataAtual}`;
+        this.imagemURL = `http://localhost:5000/Resources/Images/${evento.imagemURL}?_ts=${this.dataAtual}`;
         this.evento.imagemURL = '';
         this.registerForm.patchValue(evento);
-        this.evento.lotes
-            .forEach(lote => {
-                      this.lotes.push(this.criaLote(lote));
+        this.evento.lotes.forEach(lote => {
+          this.lotes.push(this.criaLote(lote));
         });
-
         this.evento.redesSociais.forEach(redeSocial => {
           this.redesSociais.push(this.criaredeSocial(redeSocial));
         });
-      }, error => {
-        this.toastService.error(`Ocorreu um erro ao buscar o evento Nº ${idEvento}`);
-      });
+      },
+      error => {
+        this.toastService.error(
+          `Ocorreu um erro ao buscar o evento Nº ${idEvento}`
+        );
+      }
+    );
+  }
+  salvarEvento() {
+    this.evento = Object.assign(
+      { id: this.evento.id },
+      this.registerForm.value
+    );
+    this.evento.imagemURL = this.fileNameToUpdate;
+    this.uploadImagem();
+
+    this.service.putEvento(this.evento).subscribe(
+      () => {
+        this.toastService.success('Atualizado com sucesso', 'Sucesso');
+      },
+      error => {
+        this.toastService.error(`Erro ao atualizar ${error}`, 'Erro');
+      }
+    );
+  }
+  uploadImagem() {
+    if (this.registerForm.get('imagemURL').value !== '') {
+      this.service
+        .postUpload(this.file, this.fileNameToUpdate)
+        .subscribe(() => {
+          this.dataAtual = new Date().getMilliseconds().toString();
+          this.imagemURL = `http://localhost:5000/Resources/Images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
+        });
     }
-    salvarEvento() {
-      this.evento = Object.assign({ id: this.evento.id },  this.registerForm.value);
-        this.evento.imagemURL = this.fileNameToUpdate;
-        this.uploadImagem();
-        
-        this.service.putEvento(this.evento).subscribe(
-          () => {
-            this.toastService.success('Atualizado com sucesso', 'Sucesso');
-          },
-          error => {
-            this.toastService.error(`Erro ao atualizar ${error}`, 'Erro');
-          }
-          );
-        }
-        uploadImagem() {
-          if (this.registerForm.get('imagemURL').value !== '') {
-            this.service
-                .postUpload(this.file, this.fileNameToUpdate)
-                .subscribe(
-                  () => {
-                    this.dataAtual = new Date().getMilliseconds().toString();
-                    this.imagemURL = `http://localhost:5000/Resources/Images/${ this.evento.imagemURL }?_ts=${this.dataAtual}`;
-                  });
-            }
-          }
-        }
+  }
+}
