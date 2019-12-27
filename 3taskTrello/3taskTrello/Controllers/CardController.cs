@@ -1,6 +1,6 @@
 namespace 3taskTrello.Controllers
 {
-     [ApiController]
+    [ApiController]
     [Route("[controller]")]
     public class CardController :ControllerBase
     {
