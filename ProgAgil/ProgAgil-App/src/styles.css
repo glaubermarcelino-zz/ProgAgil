@@ -7,14 +7,14 @@
 #toastr-container > div{
     opacity:1;
 }
-body
+html >body
 {
     color: white;
     width: 100%;
     overflow: hidden;
     position: relative;
     z-index: 1;
-    height: 100px;
+    /* height: 100px; */
     background-image: url(https://ow2.res.office365.com/owalanding/2019.11.6.01/images/masthead-alt-06-wide-large.jpg);
     background-repeat: no-repeat;
     /* background-position: 45% center; */
