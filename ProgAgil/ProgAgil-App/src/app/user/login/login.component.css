@@ -4,7 +4,7 @@ body{
 form > h1{
   color: navajowhite;
 }
-form>input{
+#username{
   margin-bottom: 10px;
 }
 .form-signin {
