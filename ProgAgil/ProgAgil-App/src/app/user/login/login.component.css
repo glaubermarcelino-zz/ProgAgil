@@ -36,3 +36,50 @@ form > h1{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+  box .share-buttons a:before {
+    font-family: icomoon-the7-font;
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+}
+  .show-on-hover .share-link-description:before, .single-share-box .share-buttons a:before {
+    font-family: icomoon-the7-font;
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+}
+.share-buttons .soc-font-icon {
+  display: none;
+}
+.dt-icon-facebook:before, .facebook .soc-font-icon:before, .icomoon-the7-font-facebook:before {
+  content: "\f106";
+}
+  .single-share-box .share-buttons a {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    min-width: 50px;
+    min-height: 30px;
+    margin: 0 4px 4px 0;
+    border: 1px solid;
+    text-transform: none;
+    font-size: 16px;
+    line-height: 30px;
+    text-decoration: none;
+    -webkit-transition: border-color .2s ease;
+    transition: border-color .2s ease;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a.facebook:before {
+  content: "\f0069";
+}
+a.twitter:before {
+  content: "\f127";
+}
+a.linkedin:before {
+  content: "\f113";
+}
+a.whatsapp:before {
+  content: "\f132";
+}
