@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "licenciamento.app", "licenciamento.app\licenciamento.app.csproj", "{BB0E00ED-910C-4BFA-A640-294C59D1132B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "licenciamento.app", "licenciamento.app\licenciamento.app.csproj", "{BB0E00ED-910C-4BFA-A640-294C59D1132B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "licenciamento.core", "licenciamento.core\licenciamento.core.csproj", "{2C4A2E9B-51A8-4BE8-9DFD-A0B0D96F00E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "licenciamento.core", "licenciamento.core\licenciamento.core.csproj", "{2C4A2E9B-51A8-4BE8-9DFD-A0B0D96F00E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "licenciamento.domain", "licenciamento.domain\licenciamento.domain.csproj", "{FD3D4C9F-7BCD-466D-9220-BB18184B563F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "licenciamento.domain", "licenciamento.domain\licenciamento.domain.csproj", "{FD3D4C9F-7BCD-466D-9220-BB18184B563F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "licenciamento.repository", "licenciamento.repository\licenciamento.repository.csproj", "{56AE9421-5E39-4F05-B2F0-7C4D58A96AF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "licenciamento.repository", "licenciamento.repository\licenciamento.repository.csproj", "{56AE9421-5E39-4F05-B2F0-7C4D58A96AF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App\App.csproj", "{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BB0E00ED-910C-4BFA-A640-294C59D1132B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +71,23 @@ Global
 		{56AE9421-5E39-4F05-B2F0-7C4D58A96AF3}.Release|x64.Build.0 = Release|Any CPU
 		{56AE9421-5E39-4F05-B2F0-7C4D58A96AF3}.Release|x86.ActiveCfg = Release|Any CPU
 		{56AE9421-5E39-4F05-B2F0-7C4D58A96AF3}.Release|x86.Build.0 = Release|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Debug|x64.Build.0 = Debug|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Debug|x86.Build.0 = Debug|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Release|x64.ActiveCfg = Release|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Release|x64.Build.0 = Release|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1E039B7-8353-4FB1-BC83-79627DEEFEF7}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B29109A9-ECCE-40B1-8813-2F4CB2EA3C38}
 	EndGlobalSection
 EndGlobal
