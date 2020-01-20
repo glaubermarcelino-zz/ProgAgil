@@ -14,13 +14,18 @@ namespace App
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if(Service.MachineIsRegistered2()) { 
+            Machine machine = new Machine();
+            txtMachineId.Text = machine.GetMachineIdLocal();
+
+            //if(Service.MachineIsRegistered2()) 
+            //{ 
             
-            }
-            else {
-                MessageBox.Show("Não foi posível validar a licença para este computador");
-                Application.Exit();
-            }
+            //}
+            //else 
+            //{
+            //    MessageBox.Show("Não foi posível validar a licença para este computador");
+            //    Application.Exit();
+            //}
         }
     }
 }

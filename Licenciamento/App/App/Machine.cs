@@ -164,7 +164,7 @@ namespace App
 
         public RestResponse<Machine> AutenticateMachine(string MachineId)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }
