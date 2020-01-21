@@ -1,20 +1,22 @@
 using System;
 namespace M2AIntegracao.Domain.Entities
 {
-    public class produto
+    public class Produto
     {
-        string nu_cnpj { get; set; }
-        int sq_produto { get; set; }
-        int sq_produtoExportacao { get; set; }
-        string nm_produto { get; set; }
-        string ds_produto { get; set; }
-        string cd_grupo { get; set; }
-        string sg_unidade { get; set; }
-        DateTime dt_alteracao { get; set; }
-        DateTime dt_desativacao { get; set; }
+        public int ProdutoId{get;set;}
+        string Cnpj { get; set; }
+        int CodProduto { get; set; }
+        int CodProdutoExportacao { get; set; }
+        string Produto { get; set; }
+        string Descricao { get; set; }
+        string GrupoId { get; set; }
+        public virtual Grupo Grupo { get; set; }
+        DateTime DataAlteracao { get; set; }
+        DateTime DataDesativacao { get; set; }
         bool fl_migracao { get; set; }
-        int sq_unidade { get; set; }
-        DateTime dt_cadastro { get; set; }
+        int UnidadeMedidaId { get; set; }
+        public virtual UnidadeMedida UnidadeMedida { get; set; }
+        DateTime DataCadastro { get; set; }
         bool fl_generico { get; set; }
     }
 }
