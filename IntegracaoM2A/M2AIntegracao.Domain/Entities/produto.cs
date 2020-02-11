@@ -1,10 +1,9 @@
 using System;
 namespace M2AIntegracao.Domain.Entities
 {
-    public class Produto
+    public class Produto:Base
     {
         public int ProdutoId{get;set;}
-        string Cnpj { get; set; }
         int CodProduto { get; set; }
         int CodProdutoExportacao { get; set; }
         string Produto { get; set; }

@@ -1,6 +1,6 @@
 namespace M2AIntegracao.Domain.Entities
 {
-    public class ItemLicitacao
+    public class ItemLicitacao:Base
     {
         
     }
