@@ -1,6 +1,6 @@
 namespace M2AIntegracao.Repository.Repository
 {
-    public class LicitacaoRepository :ILicitacaoRepository
+    public class LicitacaoRepository :ILicitacaoRepository,IBaseRepository
     {
         
     }
