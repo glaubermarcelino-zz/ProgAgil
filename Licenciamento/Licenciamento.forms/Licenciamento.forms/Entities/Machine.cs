@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Licenciamento.domain.Entities
+namespace Licenciamento.forms.Entities
 {
     public class Machine
     {
